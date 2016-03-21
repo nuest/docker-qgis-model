@@ -5,79 +5,79 @@
                 "values": {
                     "pos": {
                         "values": {
-                            "y": 126.0, 
+                            "y": 126.0,
                             "x": 279.0
-                        }, 
+                        },
                         "class": "point"
-                    }, 
+                    },
                     "param": {
                         "values": {
-                            "isAdvanced": false, 
-                            "name": "RASTERLAYER_INPUTIMAGE", 
-                            "showSublayersDialog": true, 
-                            "value": null, 
-                            "exported": null, 
-                            "hidden": false, 
-                            "optional": false, 
+                            "isAdvanced": false,
+                            "name": "RASTERLAYER_INPUTIMAGE",
+                            "showSublayersDialog": true,
+                            "value": null,
+                            "exported": null,
+                            "hidden": false,
+                            "optional": false,
                             "description": "input image"
-                        }, 
+                        },
                         "class": "processing.core.parameters.ParameterRaster"
                     }
-                }, 
+                },
                 "class": "processing.modeler.ModelerAlgorithm.ModelerParameter"
             }
-        }, 
-        "helpContent": {}, 
-        "group": "example for github", 
-        "name": "compute NDVI", 
+        },
+        "helpContent": {},
+        "group": "example for github",
+        "name": "compute NDVI",
         "algs": {
             "OTBBANDMATH_1": {
                 "values": {
-                    "name": "OTBBANDMATH_1", 
-                    "paramsFolded": true, 
+                    "name": "OTBBANDMATH_1",
+                    "paramsFolded": true,
                     "outputs": {
                         "-out": {
                             "values": {
-                                "description": "NDVI", 
+                                "description": "NDVI",
                                 "pos": {
                                     "values": {
-                                        "y": 291.0, 
+                                        "y": 291.0,
                                         "x": 277.0
-                                    }, 
+                                    },
                                     "class": "point"
                                 }
-                            }, 
+                            },
                             "class": "processing.modeler.ModelerAlgorithm.ModelerOutput"
                         }
-                    }, 
+                    },
                     "pos": {
                         "values": {
-                            "y": 208.0, 
+                            "y": 208.0,
                             "x": 279.0
-                        }, 
+                        },
                         "class": "point"
-                    }, 
-                    "outputsFolded": true, 
-                    "dependencies": [], 
+                    },
+                    "outputsFolded": true,
+                    "dependencies": [],
                     "params": {
-                        "-ram": 128.0, 
+                        "-ram": 128.0,
                         "-il": [
                             {
                                 "values": {
                                     "name": "RASTERLAYER_INPUTIMAGE"
-                                }, 
+                                },
                                 "class": "processing.modeler.ModelerAlgorithm.ValueFromInput"
                             }
-                        ], 
-                        "-exp": "(im1b4-im1b3)/(im1b4+imb3)"
-                    }, 
-                    "active": true, 
-                    "consoleName": "otb:bandmath", 
+                        ],
+                        "-exp": "(im1b4-im1b3)/(im1b4+im1b3)"
+                    },
+                    "active": true,
+                    "consoleName": "otb:bandmath",
                     "description": "NDVI"
-                }, 
+                },
                 "class": "processing.modeler.ModelerAlgorithm.Algorithm"
             }
         }
-    }, 
+    },
     "class": "processing.modeler.ModelerAlgorithm.ModelerAlgorithm"
 }
