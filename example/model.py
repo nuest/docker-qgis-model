@@ -18,15 +18,14 @@ import prepare
 # https://docs.qgis.org/2.8/en/docs/user_manual/processing/console.html
 
 # Import and initialize Processing framework
-from processing.core.Processing import Processing
-Processing.initialize()
+#from processing.core.Processing import Processing
+#Processing.initialize()
 import processing
 import datetime
 
 # Helper function
 import os
 import errno
-
 def make_sure_path_exists(path):
     try:
         os.makedirs(path)
@@ -35,15 +34,11 @@ def make_sure_path_exists(path):
             raise
 
 # Run model, use current time for output file name
-input_image="/data/aasee_muenster_sentinel2.tif"
-output_directory="/data/" + datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
+input_image = "/data/aasee_muenster_sentinel2.tif"
+output_directory = "/data/" + datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
 make_sure_path_exists(output_directory)
-output_image=os.path.join(output_directory, "result.tif")
+output_image = os.path.join(output_directory, "result.tif")
 
-print "Algorithm help and options:"
-processing.alghelp("modeler:docker")
-processing.algoptions("modeler:docker")
-
-print "Start processing..."
-processing.runalg("modeler:docker",input_image,output_image)
-print "Processing complete"
+print "+++++ Start processing..."
+processing.runalg("modeler:docker", input_image, output_image)
+print "+++++ Processing complete"

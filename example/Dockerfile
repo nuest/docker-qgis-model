@@ -8,6 +8,9 @@
 FROM qgis-model-ubuntu
 MAINTAINER Daniel Nüst <daniel.nuest@uni-muenster.de>
 
+# This Dockerfile is only an extension of the main Dockerfile to 
+# show how data can be copied into the container, instead of
+# mounting it at execution time.
 COPY data /data
 
 # CMD/ENTRYPOINT can stay the same
