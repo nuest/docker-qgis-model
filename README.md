@@ -2,8 +2,8 @@
 
 This project contains two Docker containers to run QGIS models based on a model file and a minimal Python script from the command line. The Python script contains the actual model call, using all the required input data files (which a generic script cannot guess). There are two ways to use the image. First, run it locally and mount the required script and data. Second, create a new Dockerfile to build an image that embeds the data.
 
-The first variant is based on the QGIS Desktop container by [Kartoza](https://github.com/kartoza/docker-qgis-desktop), which is based on Debian.
-The second one is based on the QGIS Desktop container by [Todd Stavish](https://github.com/toddstavish/Dockerfiles/tree/master/QGIS), which is based on Ubuntu and UbuntuGIS.
+The first variant is based on the QGIS Desktop container by [Kartoza](https://github.com/kartoza/docker-qgis-desktop), which is based on Debian. Thanks, Kartoza!
+The second one is based on Ubuntu and UbuntuGIS repository. It was originally based on [Todd Stavish](https://github.com/toddstavish/Dockerfiles/tree/master/QGIS)'s work. Thanks, Todd!
 
 All commands in this document are executed from within the repository's root directory.
 
@@ -12,7 +12,7 @@ All commands in this document are executed from within the repository's root dir
 A working example for calculating an NDVI based on a GeoTIFF is in the directory `/example`. To run it, first build the Ubuntu container as explained below. Then run the following command:
 
 ```
-docker run --rm -it -v $(pwd)/example/data:/data qgis-model-ubuntu
+docker run --rm -it -v $(pwd)/example/:/data qgis-model-ubuntu
 ```
 
 ## Example with embedded data
@@ -23,10 +23,11 @@ If you want to embed the data to the
 
 Prepare a directory with the following contents. In the remainder of these instructions, we will assume it is called `data`.
 
-* `*.model` - your QGIS workflow model (one only, or configure name via environment variable `QGIS_MODELFILE`)
+* `/models/*.model` - your QGIS workflow model (one only, or configure name via environment variable `QGIS_MODELFILE`)
   * when the container is executed, this file is copied into the model directory of the root user under the name `model.docker` so that it must be referenced in the python file as `"modeler:docker"`
-* `model.py` - a minimal Python file with the run command referencing the required data files, see template below
+* `model.py` - a minimal Python file with the run command referencing the required data files, see template below. Depending on your model, the actual call to `processing.runalg(...)` will look very different. For example, it might container several inputs and/or outputs.
 * all data files
+* any additional user scripts in `scrips/*.py`
 
 **Python file template:**
 
@@ -34,6 +35,8 @@ Prepare a directory with the following contents. In the remainder of these instr
 #!/usr/bin/python
 
 # Run preparation file
+import sys
+sys.path.append("/qgis/util")
 import prepare
 
 # Import and initialize Processing framework
@@ -49,6 +52,8 @@ print "Start processing..."
 processing.runalg("modeler:docker",input,output)
 print "Processing complete"
 ```
+
+The 
 
 ## Run the model
 
@@ -91,7 +96,7 @@ docker exec <container name> less /qgis/qgis.log
 
 ## Create a self-contained image
 
-The previous run command mounts a directory of the host computer to the container, which is suitable for model development. If you want to publish a self-contained Docker image, you can create a minimal Dockerfile to copy your data into the containery, see `/example/Dockerfile`. Then build and execute your own container and image:
+The previous run command mounts a directory of the host computer to the container, which is suitable for model development. If you want to publish a self-contained Docker image, you can create a minimal Dockerfile to copy your data into the container, see `/example/Dockerfile`. Then build and execute your own container and image:
 
 ```
 docker build -t qgis-my-model example/.
