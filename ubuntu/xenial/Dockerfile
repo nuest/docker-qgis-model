@@ -34,6 +34,7 @@ RUN apt-get update \
         qgis-providers \
         qgis \
         xvfb \
+        tree \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
@@ -77,12 +78,7 @@ ENV QGIS_SCRIPTFILE=/data/scripts/*.py
 ENV QGIS_USER_MODELDIR=/root/.qgis2/processing/models
 ENV QGIS_USER_SCRIPTDIR=/root/.qgis2/processing/scripts
 ENV QGIS_MODELSCRIPT=/data/model.py
-
-# FIXME add to first install list!
-RUN apt-get update \
-    && apt-get install -qqy --no-install-recommends \
-    tree \
-    && apt-get clean
+ENV XVFB_LOGFILE=/qgis/xvfb.log
 
 # Add main script
 WORKDIR /qgis

@@ -18,8 +18,8 @@ import qgis.utils
 
 print "##### Preparing..."
 
-# Append util scripts directory to path
-sys.path.append("/qgis/util")
+## Append util scripts directory to path
+#sys.path.append("/qgis/util")
 
 ## Configure QApplication to fix iface issue
 #qapp = QApplication([])
@@ -32,9 +32,13 @@ sys.path.append("/qgis/util")
 #plugin = ProcessingPlugin(iface)
 #from processing.tools import *
 
+qapp = QApplication([])
+
 # https://docs.qgis.org/2.8/en/docs/user_manual/processing/console.html
 # Initialize QGIS Application
-app = QgsApplication([], True)
+app = QgsApplication([])
+
+#QgsApplication.setPrefixPath("/usr", True)
 QgsApplication.setPrefixPath("/usr/bin/qgis", True)
 QgsApplication.initQgis()
 

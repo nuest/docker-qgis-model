@@ -7,17 +7,20 @@ The second one is based on Ubuntu and UbuntuGIS repository. It was originally ba
 
 All commands in this document are executed from within the repository's root directory.
 
+
 ## Example
 
 A working example for calculating an NDVI based on a GeoTIFF is in the directory `/example`. To run it, first build the Ubuntu container as explained below. Then run the following command:
 
 ```
-docker run --rm -it -v $(pwd)/example/:/data qgis-model-ubuntu
+docker run --rm -it -v $(pwd)/example/:/data qgis-model-ubuntu:trusty
 ```
+
 
 ## Example with embedded data
 
-If you want to embed the data to the
+If you want to embed the data into the container, you can create your own dockerfile and directly `COPY` your data directory to the location `/data` inside the container. See `/example/Dockerfile` for a template.
+
 
 ## Preparations
 
@@ -51,9 +54,8 @@ output="/data/output.file"
 print "Start processing..."
 processing.runalg("modeler:docker",input,output)
 print "Processing complete"
-```
+``` 
 
-The 
 
 ## Run the model
 
@@ -90,8 +92,10 @@ After the model has started you can access the current state of the containers l
 ```
 docker ps
 # note the name of the container running the command /qgis/model.sh
-docker exec <container name> less /qgis/qgis.log
+docker exec <container name> cat /qgis/qgis.log
 ```
+
+Alternatively to `cat`, you can `less` or other tools.
 
 
 ## Create a self-contained image
@@ -132,16 +136,22 @@ docker run -it --rm -v /home/daniel/:/home/daniel -v /tmp/.X11-unix:/tmp/.X11-un
 
 ### Ubuntu
 
-* See directory `/ubuntu` for the Dockerfile
-* https://hub.docker.com/r/toddstavish/qgis/
-* https://github.com/toddstavish/Dockerfiles/tree/master/QGIS
+* See directory `/ubuntu/<release name>` for the respective Dockerfile
 
 Execute the following command to build the container and name it.
 
 ```
-docker build -t qgis-model-ubuntu ubuntu/.
+docker build -t qgis-model-ubuntu:<release name> ubuntu/trusty/.
 ```
 
+The following commands (run in the root directory of this project) build images for both Ubuntu 14.04 and 16.04 and tag the latter as being the "latest".
+
+```
+docker build -t qgis-model-ubuntu:trusty -f ubuntu/trusty/Dockerfile ubuntu/.
+docker build -t qgis-model-ubuntu:xenial -t qgis-model-ubuntu:latest -f ubuntu/xenial/Dockerfile ubuntu/.
+```
+
+(Note the use of the `-f` parameter to set the build context to the directory `/ubuntu`. This was the same `model.sh` and `util` can be used for both Dockerfiles.
 
 ## Ideas/Future work
 

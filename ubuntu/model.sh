@@ -25,6 +25,7 @@ python -c 'import qgis.utils; print "QGIS: %s" % qgis.utils.QGis.QGIS_VERSION'
 mkdir -p $QGIS_USER_MODELDIR
 echo "###### Using QGIS model file" $(ls $QGIS_MODELFILE)
 cp $QGIS_MODELFILE $QGIS_USER_MODELDIR/docker.model
+cp $QGIS_MODELFILE $QGIS_USER_MODELDIR/example_analysis_linux_v2.3.model
 echo "###### Model files is directory" $QGIS_USER_MODELDIR":" $(ls $QGIS_USER_MODELDIR)
 
 # We expect the container is started with script files configured via environment variable
@@ -34,12 +35,20 @@ if [ -f $QGIS_SCRIPTFILE ]; then
     echo "###### Script files is directory" $QGIS_USER_SCRIPTDIR":" $(ls $QGIS_USER_SCRIPTDIR)
 fi
 
-# Run QGIS headless, see https://marc.info/?l=qgis-developer&m=141824118828451&w=2
+# Run QGIS headless, see https://marc.info/?l=qgis-developer&m=141824118828451&w=2 using X Window Virtual Framebuffer
 # We except the actual model file to be configured via environment variable
-xvfb-run -e /qgis/xvfb.log python $QGIS_MODELSCRIPT
+echo " "
+echo "###### Running model NOW"
+xvfb-run -e $XVFB_LOGFILE python $QGIS_MODELSCRIPT
 
+echo " "
 echo "###### Data directory contents:"
 tree /data
 
+#echo " "
+#echo "###### xvfb log:"
+#cat $XVFB_LOGFILE
+
+echo " "
 echo "###### QGIS log:"
 cat $QGIS_LOGFILE
