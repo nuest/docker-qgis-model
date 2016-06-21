@@ -10,11 +10,14 @@ All commands in this document are executed from within the repository's root dir
 
 ## Example
 
-A working example for calculating an NDVI based on a GeoTIFF is in the directory `/example`. To run it, first build the Ubuntu container as explained below. Then run the following command:
+A working example for calculating an NDVI based on a GeoTIFF is in the directory `/example`. To run it, first build the Ubuntu container and then run it with the following commands (executed from the root of this project):
 
 ```
+docker build -t qgis-model-ubuntu:trusty -f ubuntu/trusty/Dockerfile ubuntu/.
 docker run --rm -it -v $(pwd)/example/:/data qgis-model-ubuntu:trusty
 ```
+
+Take a look at the console - it contains several useful log statements. A new directory was created in `/example`. It contains the resulting GeoTIFF (`result.tif`) and a JPG preview file (`result.jpg`).
 
 
 ## Example with embedded data

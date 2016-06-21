@@ -9,22 +9,50 @@
 #
 #   http://www.apache.org/licenses/LICENSE-2.0
 
-import sys
-sys.path.append("/qgis/util")
-
 # run preparation file http://stackoverflow.com/questions/7974849/how-can-i-make-one-python-file-run-another
-import prepare
+#import sys
+#sys.path.append("/qgis/util")
+#import prepare
 
-# https://docs.qgis.org/2.8/en/docs/user_manual/processing/console.html
+import sys
+import os
+import glob
+import datetime
+from time import gmtime, strftime
+from timeit import default_timer as timer
+
+from qgis.core import *
+import qgis.utils
+
+print "##### Preparing..."
+# Initialize QGIS Application > https://docs.qgis.org/2.8/en/docs/user_manual/processing/console.html
+app = QgsApplication([], True)
+QgsApplication.setPrefixPath("/usr", True)
+QgsApplication.initQgis()
+print "##### QgsApplication initialized."
+
+# Enable logging
+filename = os.environ['QGIS_LOGFILE']
+def writelogmessage(message, tag, level):
+    with open( filename, 'a' ) as logfile:
+        logfile.write( '{}({}): {}\n'.format( tag, level, message ) )
+QgsMessageLog.instance().messageReceived.connect( writelogmessage )
+print "##### QGIS logs to file %s" % filename
+
+print "##### QGIS settings:"
+print QgsApplication.showSettings()
 
 # Import and initialize Processing framework
-#from processing.core.Processing import Processing
-#Processing.initialize()
+sys.path.append('/usr/share/qgis/python/plugins')
+from processing.core.Processing import Processing
+Processing.initialize()
 import processing
-import datetime
 
-# Helper function
-import os
+print "###### Algorithm help and options:"
+processing.alghelp("modeler:docker")
+processing.algoptions("modeler:docker")
+
+# Helper function for creating output directory
 import errno
 def make_sure_path_exists(path):
     try:
@@ -39,6 +67,20 @@ output_directory = "/data/" + datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
 make_sure_path_exists(output_directory)
 output_image = os.path.join(output_directory, "result.tif")
 
-print "+++++ Start processing..."
+print "###### Saving output to file to\t\t" + output_image
+
+print "###### Start processing at " + strftime("%Y-%m-%d %H:%M:%S", gmtime()) + " ..."
+start = timer()
+
 processing.runalg("modeler:docker", input_image, output_image)
-print "+++++ Processing complete"
+
+end = timer()
+print "###### Processing complete at " + strftime("%Y-%m-%d %H:%M:%S", gmtime()) + ", took " + str(end-start) + " seconds"
+
+print "###### Output image info:"
+os.system("gdalinfo " + output_image)
+
+
+output_preview = os.path.join(output_directory, "result.jpg")
+os.system("gdal_translate -of JPEG -scale " + output_image + " " + output_preview)
+print "###### Created jpg preview for result.tif"

@@ -87,6 +87,4 @@ WORKDIR /qgis
 COPY model.sh model.sh
 RUN chmod 0755 model.sh
 
-COPY util util
-
 ENTRYPOINT ["/qgis/model.sh"]

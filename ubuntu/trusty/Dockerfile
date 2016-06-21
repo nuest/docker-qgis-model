@@ -11,9 +11,6 @@ MAINTAINER Daniel Nüst <daniel.nuest@uni-muenster.de>
 # For ubuntu 14.04, potentially useful for 16.04 as well:
 # Add qgis repos to get latest QGIS, see https://www.qgis.org/en/site/forusers/alldownloads.html#debian-ubuntu/qgis.org
 # use the one with ubuntugis dependencies > http://qgis.org/ubuntugis/
-#deb     http://qgis.org/debian trusty main
-#deb-src http://qgis.org/debian trusty main
-#apt-key adv --keyserver keyserver.ubuntu.com --recv-key 3FF5FFCAD71472C4
 
 RUN apt-get update \
     && apt-get install -qqy software-properties-common --no-install-recommends \
@@ -21,6 +18,9 @@ RUN apt-get update \
     && apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 314DF160 \
     && apt-get -qqy update \
     && apt-get install -qqy --no-install-recommends \
+        tree \
+        xvfb \
+        # QGIS requirements:
         gdal-bin \
         otb-bin \
         otb-bin-qt \
@@ -29,22 +29,18 @@ RUN apt-get update \
         python-qgis \
         #saga \
         grass \
-        python-qgis \
+        # Python installer; numerical and imaging libs:
+        python-pip \
+        python-dev \
         python-scipy \
         python-numpy \
+        libjpeg8-dev \
+        # QGIS:
         qgis-plugin-grass \
         qgis-providers \
         qgis \
-        xvfb \
-        tree \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
-
-# Install SAGA in specific version to avoid compatibility issues: http://hub.qgis.org/issues/13279
-# A manualy try using software-properties-common and devscripts (rmadison) from different source packages/repos shows many different versions, but explicitly installing 2.2.0+dfsg-1build2 or 2.1.4+dfsg-1ubuntu1 does NOT work
-# Instructions based on https://sourceforge.net/p/saga-gis/wiki/Compiling%20a%20Linux%20Unicode%20version/
-RUN apt-get update \
-    && apt-get install -qqy --no-install-recommends \
+        python-qgis \
+        # Needed to compile SAGA:
         wget \
         g++ \
         make \
@@ -52,7 +48,7 @@ RUN apt-get update \
         libtool \
         libwxgtk3.0-dev \
         libtiff5-dev \
-        #libtiff4-dev also available for 14.04
+        libtiff4-dev \
         libgdal-dev \
         libproj-dev \
         libjasper-dev \
@@ -60,11 +56,14 @@ RUN apt-get update \
         wx-common \
         libogdi3.2-dev \
         unixodbc-dev \
-    && apt-get clean
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 
+# Install SAGA in specific version to avoid compatibility issues: http://hub.qgis.org/issues/13279
+# A manualy try using software-properties-common and devscripts (rmadison) from different source packages/repos shows many different versions, but explicitly installing 2.2.0+dfsg-1build2 or 2.1.4+dfsg-1ubuntu1 does NOT work
+# Instructions based on https://sourceforge.net/p/saga-gis/wiki/Compiling%20a%20Linux%20Unicode%20version/
 ENV SAGA_VERSION_MINOR 2.2.0
 ENV SAGA_VERSION 2.2
-
 RUN wget http://downloads.sourceforge.net/project/saga-gis/SAGA%20-%20$SAGA_VERSION/SAGA%20$SAGA_VERSION_MINOR/saga_$SAGA_VERSION_MINOR.tar.gz \
     && tar -xvzf saga*.tar.gz
 
@@ -72,6 +71,8 @@ WORKDIR saga-$SAGA_VERSION_MINOR
 RUN ./configure \
     && make \
     && make install
+    
+#RUN pip install Pillow GDAL
 
 ENV PYTHONPATH=/usr/share/qgis/python:/usr/lib/otb/python:/usr/share/qgis/python/plugins
 ENV QGIS_LOGFILE=/qgis/qgis.log
@@ -86,7 +87,5 @@ ENV XVFB_LOGFILE=/qgis/xvfb.log
 WORKDIR /qgis
 COPY model.sh model.sh
 RUN chmod 0755 model.sh
-
-COPY util util
 
 ENTRYPOINT ["/qgis/model.sh"]
