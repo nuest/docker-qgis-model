@@ -30,6 +30,8 @@ RUN apt-get update \
         #saga \
         grass \
         python-qgis \
+        python-scipy \
+        python-numpy \
         qgis-plugin-grass \
         qgis-providers \
         qgis \

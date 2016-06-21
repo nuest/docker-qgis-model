@@ -20,6 +20,8 @@ saga_cmd --version --version 2>&1 | head -1
 grass --version 2>&1 | head -1
 echo "Orfeo Toolbox (OTB)" $(otbcli_BandMath 2>&1 | grep 'version')
 python -c 'import qgis.utils; print "QGIS: %s" % qgis.utils.QGis.QGIS_VERSION'
+echo "Processing plugin metadata:"
+cat /usr/share/qgis/python/plugins/processing/metadata.txt
 
 # We expect the container is started with one model file configured via environment variable
 mkdir -p $QGIS_USER_MODELDIR
