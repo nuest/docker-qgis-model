@@ -12,6 +12,8 @@ MAINTAINER Daniel Nüst <daniel.nuest@uni-muenster.de>
 # Add qgis repos to get latest QGIS, see https://www.qgis.org/en/site/forusers/alldownloads.html#debian-ubuntu/qgis.org
 # use the one with ubuntugis dependencies > http://qgis.org/ubuntugis/
 
+ENV QGIS_VERSION=1:2.8.1-0+20trusty6
+
 RUN apt-get update \
     && apt-get install -qqy software-properties-common --no-install-recommends \
     && apt-add-repository -y ppa:ubuntugis/ubuntugis-unstable \ 
@@ -26,17 +28,19 @@ RUN apt-get update \
         otb-bin-qt \
         python-otb \
         python-qgis-common \
-        python-qgis \
         #saga \
         grass \
-        # Python numerical and imaging libs:
+        # Python installer; numerical and imaging libs:
+        python-pip \
         python-dev \
         python-scipy \
         python-numpy \
+        libjpeg8-dev \
         # QGIS:
         qgis-plugin-grass \
-        qgis-providers \
-        qgis \
+        qgis-providers=$QGIS_VERSION \
+        qgis=$QGIS_VERSION \
+        python-qgis=$QGIS_VERSION \
         # Needed to compile SAGA:
         wget \
         g++ \
@@ -68,11 +72,11 @@ WORKDIR saga-$SAGA_VERSION_MINOR
 RUN ./configure \
     && make \
     && make install
+    
+#RUN pip install Pillow GDAL
 
-# Set environment variables
 ENV PYTHONPATH=/usr/share/qgis/python:/usr/lib/otb/python:/usr/share/qgis/python/plugins
 ENV QGIS_LOGFILE=/qgis/qgis.log
-ENV QGIS_WORKSPACE=/workspace
 ENV QGIS_MODELFILE=/workspace/models/*.model
 ENV QGIS_SCRIPTFILE=/workspace/scripts/*.py
 ENV QGIS_USER_MODELDIR=/root/.qgis2/processing/models

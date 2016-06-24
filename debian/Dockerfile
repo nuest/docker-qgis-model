@@ -99,7 +99,7 @@ RUN cp bin/* /usr/bin/
 # path to qgis, qgis python plugins, and OTB
 ENV PYTHONPATH=/usr/share/qgis/python:/usr/lib/otb/python:/usr/share/qgis/python/plugins
 ENV QGIS_LOGFILE=/qgis/qgis.log
-ENV QGIS_MODELFILE=/data/*.model
+ENV QGIS_MODELFILE=/workspace/*.model
 
 # add main script
 WORKDIR /qgis

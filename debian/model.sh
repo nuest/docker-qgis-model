@@ -16,7 +16,7 @@ echo "Using QGIS model file" $(ls $QGIS_MODELFILE)
 cp $QGIS_MODELFILE /root/.qgis2/processing/models/docker.model
 
 # run headless: https://marc.info/?l=qgis-developer&m=141824118828451&w=2
-xvfb-run python /data/model.py
+xvfb-run python /workspace/model.py
 
 echo "QGIS log:"
 cat $QGIS_LOGFILE

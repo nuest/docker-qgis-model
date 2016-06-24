@@ -9,11 +9,6 @@
 #
 #   http://www.apache.org/licenses/LICENSE-2.0
 
-# run preparation file http://stackoverflow.com/questions/7974849/how-can-i-make-one-python-file-run-another
-#import sys
-#sys.path.append("/qgis/util")
-#import prepare
-
 import sys
 import os
 import glob
@@ -32,12 +27,12 @@ QgsApplication.initQgis()
 print "##### QgsApplication initialized."
 
 # Enable logging
-filename = os.environ['QGIS_LOGFILE']
+logfilename = os.environ['QGIS_LOGFILE']
 def writelogmessage(message, tag, level):
-    with open( filename, 'a' ) as logfile:
+    with open( logfilename, 'a' ) as logfile:
         logfile.write( '{}({}): {}\n'.format( tag, level, message ) )
 QgsMessageLog.instance().messageReceived.connect( writelogmessage )
-print "##### QGIS logs to file %s" % filename
+print "##### QGIS logs to file %s" % logfilename
 
 print "##### QGIS settings:"
 print QgsApplication.showSettings()
@@ -61,9 +56,9 @@ def make_sure_path_exists(path):
         if exception.errno != errno.EEXIST:
             raise
 
-# Run model, use current time for output file name
-input_image = "/data/aasee_muenster_sentinel2.tif"
-output_directory = "/data/" + datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
+# Run model, use current timestamp for output directory name
+input_image = os.path.join(os.environ['QGIS_WORKSPACE'], "aasee_muenster_sentinel2.tif")
+output_directory = os.path.join(os.environ['QGIS_WORKSPACE'], datetime.datetime.now().strftime("%Y%m%d-%H%M%S"))
 make_sure_path_exists(output_directory)
 output_image = os.path.join(output_directory, "result.tif")
 

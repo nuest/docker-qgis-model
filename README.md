@@ -14,7 +14,7 @@ A working example for calculating an NDVI based on a GeoTIFF is in the directory
 
 ```
 docker build -t qgis-model-ubuntu:trusty -f ubuntu/trusty/Dockerfile ubuntu/.
-docker run --rm -it -v $(pwd)/example/:/data qgis-model-ubuntu:trusty
+docker run --rm -it -v $(pwd)/example/:/workspace qgis-model-ubuntu:trusty
 ```
 
 Take a look at the console - it contains several useful log statements. A new directory was created in `/example`. It contains the resulting GeoTIFF (`result.tif`) and a JPG preview file (`result.jpg`).
@@ -22,7 +22,7 @@ Take a look at the console - it contains several useful log statements. A new di
 
 ## Example with embedded data
 
-If you want to embed the data into the container, you can create your own dockerfile and directly `COPY` your data directory to the location `/data` inside the container. See `/example/Dockerfile` for a template.
+If you want to embed the data into the container, you can create your own dockerfile and directly `COPY` your directory with data, models (and optionally user scripts) to the location `/workspace` inside the container. See `/example/Dockerfile` for a template.
 
 
 ## Preparations
@@ -51,8 +51,8 @@ Processing.initialize()
 import processing
 
 # Run model
-input="/data/input.file"
-output="/data/output.file"
+input="/workspace/data/input.file"
+output="/workspace/data/output.file"
 
 print "Start processing..."
 processing.runalg("modeler:docker",input,output)
@@ -62,18 +62,11 @@ print "Processing complete"
 
 ## Run the model
 
-Build the container (see below) and start it with the following command, mounting your `data` directory to `/data` and replacing `<platform>` with either `debian` or `ubuntu`. If you want to publish your model in a container, see next section.
+Build the container (see below) and start it with the following command, mounting your `workspace` directory to `/workspace` and replacing `<platform>` with either `debian` or `ubuntu`. In the latter case we recommend to explicitly select the Ubuntu version and thereby the QGIS version by appending either the tag `:trusty` or `:xenial`. If you want to publish your whole model in a self-contained image, see next section.
 
 ```
-docker run --rm -it	-v /<path to data dir>:/data qgis-model-<platform>
+docker run --rm -it	-v /<path to workspace dir>:/workspace qgis-model-<platform>
 ```
-
-<!--
-docker run -it --rm -v /home/daniel/ownCloud/Reproducible-OBIA/QGIS/data/:/data -e QGIS_MODELFILE=/data/*_zonal.model qgis-model-debian /bin/bash
-docker run -it --rm -v /home/daniel/ownCloud/Reproducible-OBIA/QGIS/data/:/data --entrypoint /bin/bash qgis-model-ubuntu
-docker run -it --rm -v /home/daniel/ownCloud/Reproducible-OBIA/QGIS/data/:/data qgis-model-ubuntu
-docker run -it --rm -v /home/daniel/ownCloud/Reproducible-OBIA/QGIS/data/:/data -e QGIS_MODELFILE=/data/*_zonal.model qgis-model-ubuntu
--->
 
 ### Configuration
 
@@ -85,7 +78,7 @@ The used options are as follows:
 
 Potentially useful additional options are as these:
 * `--name="qgis"` to name the running container for easier identification
-* To *execute a specific model*, you can overwrite the environment variable `QGIS_MODELFILE` which has the default value `/data/*.model`. This is useful if you have a working directory with more than one model file. Specify the environment variable when you run the container: `docker run --rm -it -v /<path to data dir>:/data -e QGIS_MODELFILE=/data/mymodel.model qgis-model-<platform>`
+* To *execute a specific model*, you can overwrite the environment variable `QGIS_MODELFILE` which has the default value `/workspace/models/*.model`. This is useful if you have a working directory with more than one model file. Specify the environment variable when you run the container: `docker run --rm -it -v /<path to workspace dir>:/workspace -e QGIS_MODELFILE=/workspace/models/mymodel.model qgis-model-<platform>`
 * If you want to run the model manually (i.e. to debug etc.) add the parameter `--entrypoint=/bin/bash` to the command (before the image name) to override the default entrypoint and get a bash shell, then execute `./qgis/model.sh` manually.
 
 ### Access log while running
@@ -107,9 +100,10 @@ The previous run command mounts a directory of the host computer to the containe
 
 ```
 docker build -t qgis-my-model example/.
-docker run qgis-my-model
+docker run --rm qgis-my-model
 ```
 
+Be aware that you cannot access the output of the process this way. You would have to either persist the image (not `--rm`) or change the entrypoint to inspect the data.
 
 ## Build the container
 

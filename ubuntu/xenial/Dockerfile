@@ -75,11 +75,11 @@ RUN ./configure \
 
 ENV PYTHONPATH=/usr/share/qgis/python:/usr/lib/otb/python:/usr/share/qgis/python/plugins
 ENV QGIS_LOGFILE=/qgis/qgis.log
-ENV QGIS_MODELFILE=/data/models/*.model
-ENV QGIS_SCRIPTFILE=/data/scripts/*.py
+ENV QGIS_MODELFILE=/workspace/models/*.model
+ENV QGIS_SCRIPTFILE=/workspace/scripts/*.py
 ENV QGIS_USER_MODELDIR=/root/.qgis2/processing/models
 ENV QGIS_USER_SCRIPTDIR=/root/.qgis2/processing/scripts
-ENV QGIS_MODELSCRIPT=/data/model.py
+ENV QGIS_MODELSCRIPT=/workspace/model.py
 ENV XVFB_LOGFILE=/qgis/xvfb.log
 
 # Add main script
