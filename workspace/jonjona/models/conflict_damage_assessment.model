@@ -810,7 +810,7 @@
                             }, 
                             "class": "processing.modeler.ModelerAlgorithm.ValueFromOutput"
                         }, 
-                        "VALUE": "0.23", 
+                        "VALUE": "0.25", 
                         "FIELD": "diff_mean"
                     }, 
                     "active": true, 
