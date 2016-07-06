@@ -119,20 +119,22 @@ Be aware that you to access the output of the process you must not use `--rm` bu
 
 See directory `/ubuntu/Dockerfile.<release name>` for the respective Dockerfile
 
-Execute the following command in the directory `ubuntu` (which is the build context) to build the container and name it.
+Execute the following command in the root directory `/` of this repository to build the container and name it.
 
 ```
-docker build -t qgis-model-ubuntu:<release name> ubuntu/Dockerfile.<release name> .
+docker build -t qgis-model-ubuntu:<release name> -f ubuntu/Dockerfile.<release name> ./ubuntu
 ```
 
-The following command builds the image for Ubuntu 14.04 and tags it as being the "latest".
+The build context is set to `./ubuntu`, the Dockerfile name is configured explicitly.
+
+The following command, executed from within the directory `/ubuntu`, builds the image for Ubuntu 14.04 and tags it as being the "latest".
 Ubuntu 16.04 is still under development.
 
 ```
-docker build -t qgis-model-ubuntu:trusty -t qgis-model-ubuntu:latest -f ubuntu/Dockerfile.trusty .
+docker build -t qgis-model-ubuntu:trusty -t qgis-model-ubuntu:latest -f Dockerfile.trusty .
 ```
 
-(Note the use of the `-f` parameter to set the Dockerfile, the build context is set to the directory `/ubuntu` und the `.` at the end. This was the same `model.sh` and `util` can be used for both Dockerfiles.
+Note the use of the `-f` parameter to set the Dockerfile, which does not have the default name. The build context is set to the directory `/ubuntu` und the `.` at the end. This was the same `model.sh` and `util` can be used for both Dockerfiles.
 
 ### Debian
 
