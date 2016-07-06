@@ -5,7 +5,7 @@
 # You may obtain a copy of the License at
 #
 #   http://www.apache.org/licenses/LICENSE-2.0
-FROM qgis-model-ubuntu:trusty
+FROM nuest/docker-qgis-model:trusty
 MAINTAINER Daniel Nüst <daniel.nuest@uni-muenster.de>
 
 COPY . /workspace

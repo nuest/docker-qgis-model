@@ -1,11 +1,13 @@
 # QGIS Docker container for QGIS models
 
-This project contains two Docker containers to run QGIS models based on a model file and a minimal Python script from the command line. The Python script contains the actual model call, using all the required input data files (which a generic script cannot guess). There are two ways to use the image. First, run it locally and mount the required script and data. Second, create a new Dockerfile to build an image that embeds the data.
+This project contains two Docker containers to run [QGIS models](http://docs.qgis.org/2.0/en/docs/user_manual/processing/modeler.html) based on a model file and a minimal Python script from the command line. The Python script contains the actual model call, using all the required input data files (which a generic script cannot guess).
 
-The first variant is based on the QGIS Desktop container by [Kartoza](https://github.com/kartoza/docker-qgis-desktop), which is based on Debian. Thanks, Kartoza!
-The second one is based on Ubuntu and UbuntuGIS repository. It was originally based on [Todd Stavish](https://github.com/toddstavish/Dockerfiles/tree/master/QGIS)'s work. Thanks, Todd!
+There are two ways to use the image. First, run it locally and mount the required script and data. Second, create a new Dockerfile to build an image that embeds the data.
 
-All commands in this document are executed from within the repository's root directory.
+The first variant is based on Ubuntu and UbuntuGIS repository. It was originally based on [Todd Stavish](https://github.com/toddstavish/Dockerfiles/tree/master/QGIS)'s work. Thanks, Todd!
+The second is based on the QGIS Desktop container by [Kartoza](https://github.com/kartoza/docker-qgis-desktop) (Thanks!), which is currently not actively developed.
+
+_All commands in this document are executed from within the repository's root directory unless otherwise noted._
 
 
 ## Example
@@ -31,7 +33,7 @@ Take a look at the console - it contains several useful log statements. The dire
 A working example for calculating an NDVI based on a GeoTIFF is in the directory `/example`. To run it, first build the Ubuntu container and then run it with the following commands (executed from the root of this project):
 
 ```
-docker build -t qgis-model-ubuntu:trusty -f ubuntu/trusty/Dockerfile ubuntu/.
+docker build -t docker-qgis-model:trusty -f ubuntu/trusty/Dockerfile ubuntu/.
 docker run --rm -it -v $(pwd)/example/:/workspace qgis-model-ubuntu:trusty
 ```
 
@@ -122,7 +124,7 @@ See directory `/ubuntu/Dockerfile.<release name>` for the respective Dockerfile
 Execute the following command in the root directory `/` of this repository to build the container and name it.
 
 ```
-docker build -t qgis-model-ubuntu:<release name> -f ubuntu/Dockerfile.<release name> ./ubuntu
+docker build -t docker-qgis-model:<release name> -f ubuntu/Dockerfile.<release name> ./ubuntu
 ```
 
 The build context is set to `./ubuntu`, the Dockerfile name is configured explicitly.
@@ -131,7 +133,7 @@ The following command, executed from within the directory `/ubuntu`, builds the 
 Ubuntu 16.04 is still under development.
 
 ```
-docker build -t qgis-model-ubuntu:trusty -t qgis-model-ubuntu:latest -f Dockerfile.trusty .
+docker build -t docker-qgis-model:trusty -t qgis-model-ubuntu:latest -f Dockerfile.trusty .
 ```
 
 Note the use of the `-f` parameter to set the Dockerfile, which does not have the default name. The build context is set to the directory `/ubuntu` und the `.` at the end. This was the same `model.sh` and `util` can be used for both Dockerfiles.
