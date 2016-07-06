@@ -59,12 +59,13 @@ RUN apt-get update \
 # Install SAGA in specific version to avoid compatibility issues: http://hub.qgis.org/issues/13279
 # A manualy try using software-properties-common and devscripts (rmadison) from different source packages/repos shows many different versions, but explicitly installing 2.2.0+dfsg-1build2 or 2.1.4+dfsg-1ubuntu1 does NOT work
 # Instructions based on https://sourceforge.net/p/saga-gis/wiki/Compiling%20a%20Linux%20Unicode%20version/
+WORKDIR /tmp
 ENV SAGA_VERSION_MINOR 2.2.0
 ENV SAGA_VERSION 2.2
 RUN wget http://downloads.sourceforge.net/project/saga-gis/SAGA%20-%20$SAGA_VERSION/SAGA%20$SAGA_VERSION_MINOR/saga_$SAGA_VERSION_MINOR.tar.gz \
     && tar -xvzf saga*.tar.gz
 
-WORKDIR saga-$SAGA_VERSION_MINOR
+WORKDIR /tmp/saga-$SAGA_VERSION_MINOR
 RUN ./configure \
     && make \
     && make install
@@ -72,12 +73,14 @@ RUN ./configure \
 # Set environment variables
 ENV PYTHONPATH=/usr/share/qgis/python:/usr/lib/otb/python:/usr/share/qgis/python/plugins
 ENV QGIS_LOGFILE=/qgis/qgis.log
+ENV QGIS_PROCESSING_LOGFILE=/root/.qgis2/processing/processing.log
 ENV QGIS_WORKSPACE=/workspace
 ENV QGIS_MODELFILE=/workspace/models/*.model
+ENV QGIS_MODELSCRIPT=/workspace/model.py
 ENV QGIS_SCRIPTFILE=/workspace/scripts/*.py
+ENV QGIS_RESULT=/workspace/result
 ENV QGIS_USER_MODELDIR=/root/.qgis2/processing/models
 ENV QGIS_USER_SCRIPTDIR=/root/.qgis2/processing/scripts
-ENV QGIS_MODELSCRIPT=/workspace/model.py
 ENV XVFB_LOGFILE=/qgis/xvfb.log
 
 # Add main script

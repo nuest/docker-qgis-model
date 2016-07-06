@@ -42,14 +42,22 @@ echo " "
 echo "### model.sh ### Running model now"
 xvfb-run -e $XVFB_LOGFILE python $QGIS_MODELSCRIPT
 
-echo " "
-echo "### model.sh ### Workspace directory contents:"
-tree /workspace
-
 #echo " "
 #echo "### model.sh ### xvfb log:"
 #cat $XVFB_LOGFILE
 
 echo " "
+echo "### model.sh ### QGIS processing log:"
+cat $QGIS_PROCESSING_LOGFILE
+
+echo " "
 echo "### model.sh ### QGIS log:"
 cat $QGIS_LOGFILE
+
+echo " "
+echo "### model.sh ### Workspace directory contents:"
+tree /workspace
+
+echo " "
+echo "### model.sh ### Result files are available in the container as a subdirectory of " $QGIS_RESULT
+echo "### model.sh ### To copy this directory to your local host, run 'docker cp <container name or id>:"$QGIS_RESULT" <path on host>'"

@@ -10,6 +10,24 @@ All commands in this document are executed from within the repository's root dir
 
 ## Example
 
+Build the base images as described below in the section "Build the container".
+
+Then, while in the directory `workspace/example`, run the following commands to build the image including the example data, run the container to execute the analysis, and then extract the output files to a local directory relative to the current path. The last command removes the image from local storage.
+
+```
+docker build -t qgis-model-example .
+docker run --name qgis_example qgis-model-example
+
+docker cp qgis_example:/workspace/results example_results
+tree example-results
+docker rm qgis_example
+```
+
+Take a look at the console - it contains several useful log statements. The directory `./example_results` contains the resulting GeoTIFF (`result.tif`) and a JPG preview file (`result.jpg`).
+
+
+## Example with external data
+
 A working example for calculating an NDVI based on a GeoTIFF is in the directory `/example`. To run it, first build the Ubuntu container and then run it with the following commands (executed from the root of this project):
 
 ```
@@ -17,15 +35,8 @@ docker build -t qgis-model-ubuntu:trusty -f ubuntu/trusty/Dockerfile ubuntu/.
 docker run --rm -it -v $(pwd)/example/:/workspace qgis-model-ubuntu:trusty
 ```
 
-Take a look at the console - it contains several useful log statements. A new directory was created in `/example`. It contains the resulting GeoTIFF (`result.tif`) and a JPG preview file (`result.jpg`).
 
-
-## Example with embedded data
-
-If you want to embed the data into the container, you can create your own dockerfile and directly `COPY` your directory with data, models (and optionally user scripts) to the location `/workspace` inside the container. See `/example/Dockerfile` for a template.
-
-
-## Preparations
+## Preparations to package a workflow
 
 Prepare a directory with the following contents. In the remainder of these instructions, we will assume it is called `data`.
 
@@ -60,12 +71,12 @@ print "Processing complete"
 ``` 
 
 
-## Run the model
+## Run the model with a mounted workspace
 
 Build the container (see below) and start it with the following command, mounting your `workspace` directory to `/workspace` and replacing `<platform>` with either `debian` or `ubuntu`. In the latter case we recommend to explicitly select the Ubuntu version and thereby the QGIS version by appending either the tag `:trusty` or `:xenial`. If you want to publish your whole model in a self-contained image, see next section.
 
 ```
-docker run --rm -it	-v /<path to workspace dir>:/workspace qgis-model-<platform>
+docker run --rm -it -v /<path to workspace dir>:/workspace qgis-model-<platform>
 ```
 
 ### Configuration
@@ -74,6 +85,7 @@ If you want to run the model manually (i.e. to debug etc.) append `/bin/bash` to
 
 The used options are as follows:
 * `--rm` will remove the container as soon as it ends
+* `-it` ensures you can see the stdout logs
 * The startup script will copy all files named `*.model` from the mounted directory
 
 Potentially useful additional options are as these:
@@ -91,21 +103,36 @@ docker ps
 docker exec <container name> cat /qgis/qgis.log
 ```
 
-Alternatively to `cat`, you can `less` or other tools.
+Alternatively to `cat`, you can use `less` or any other tools available in the container.
 
 
 ## Create a self-contained image
 
-The previous run command mounts a directory of the host computer to the container, which is suitable for model development. If you want to publish a self-contained Docker image, you can create a minimal Dockerfile to copy your data into the container, see `/example/Dockerfile`. Then build and execute your own container and image:
+The previous run command mounts a directory of the host computer to the container, which is suitable for model development. If you want to publish a self-contained Docker image, you can create a minimal Dockerfile based on the images created above, which simply copies your data into the container, then build and execute that image.
 
-```
-docker build -t qgis-my-model example/.
-docker run --rm qgis-my-model
-```
+Be aware that you to access the output of the process you must not use `--rm` but keep the container to extract the data and delete it afterwards. See above in section "Example with embedded data" for the required commands.
 
-Be aware that you cannot access the output of the process this way. You would have to either persist the image (not `--rm`) or change the entrypoint to inspect the data.
 
 ## Build the container
+
+### Ubuntu
+
+See directory `/ubuntu/Dockerfile.<release name>` for the respective Dockerfile
+
+Execute the following command in the directory `ubuntu` (which is the build context) to build the container and name it.
+
+```
+docker build -t qgis-model-ubuntu:<release name> ubuntu/Dockerfile.<release name> .
+```
+
+The following command builds the image for Ubuntu 14.04 and tags it as being the "latest".
+Ubuntu 16.04 is still under development.
+
+```
+docker build -t qgis-model-ubuntu:trusty -t qgis-model-ubuntu:latest -f ubuntu/Dockerfile.trusty .
+```
+
+(Note the use of the `-f` parameter to set the Dockerfile, the build context is set to the directory `/ubuntu` und the `.` at the end. This was the same `model.sh` and `util` can be used for both Dockerfiles.
 
 ### Debian
 
@@ -131,24 +158,6 @@ xhost -local:docker
 docker run -it --rm -v /home/daniel/:/home/daniel -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY=unix$DISPLAY qgis-model-runner /start.sh
 -->
 
-### Ubuntu
-
-* See directory `/ubuntu/<release name>` for the respective Dockerfile
-
-Execute the following command to build the container and name it.
-
-```
-docker build -t qgis-model-ubuntu:<release name> ubuntu/trusty/.
-```
-
-The following commands (run in the root directory of this project) build images for both Ubuntu 14.04 and 16.04 and tag the latter as being the "latest".
-
-```
-docker build -t qgis-model-ubuntu:trusty -f ubuntu/trusty/Dockerfile ubuntu/.
-docker build -t qgis-model-ubuntu:xenial -t qgis-model-ubuntu:latest -f ubuntu/xenial/Dockerfile ubuntu/.
-```
-
-(Note the use of the `-f` parameter to set the build context to the directory `/ubuntu`. This was the same `model.sh` and `util` can be used for both Dockerfiles.
 
 ## Ideas/Future work
 
