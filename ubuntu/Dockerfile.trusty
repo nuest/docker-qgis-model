@@ -17,7 +17,7 @@ RUN apt-get update \
     && apt-add-repository -y ppa:ubuntugis/ubuntugis-unstable \ 
     && apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 314DF160 \
     && apt-get -qqy update \
-    && apt-get install -qqy --no-install-recommends \
+    && apt-get install -qqy --no-install-recommends --fix-missing \
         tree \
         xvfb \
         # QGIS requirements:
