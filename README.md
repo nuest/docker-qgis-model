@@ -27,6 +27,18 @@ docker rm qgis_example
 
 Take a look at the console - it contains several useful log statements. The directory `./example_results` contains the resulting GeoTIFF (`result.tif`) and a JPG preview file (`result.jpg`).
 
+The following gif shows an execution of the example container.
+
+![console gif of example execution](https://media.giphy.com/media/26BRxuXyhkReDH4dO/giphy.gif)
+
+## Example with Docker Hub image
+
+There also is an automated build on Docker Hub, which you can use to execute the example as well.
+
+```
+docker run --name qgis_example_hub -v <path to>/docker-qgis-model/workspace/example/:/workspace nuest/docker-qgis-model:trusty
+```
+
 
 ## Example with external data
 
