@@ -11,6 +11,7 @@
 
 import sys
 import os
+import tempfile
 import glob
 import datetime
 from time import gmtime, strftime
@@ -27,7 +28,7 @@ QgsApplication.initQgis()
 print "##### QgsApplication initialized."
 
 # Enable logging
-logfilename = os.environ['QGIS_LOGFILE']
+logfilename = os.getenv('QGIS_LOGFILE', os.path.join(tempfile.gettempdir(), 'qgis.log'))
 def writelogmessage(message, tag, level):
     with open( logfilename, 'a' ) as logfile:
         logfile.write( '{}({}): {}\n'.format( tag, level, message ) )
@@ -57,8 +58,8 @@ def make_sure_path_exists(path):
             raise
 
 # Run model, use current timestamp for output directory name
-input_image = os.path.join(os.environ['QGIS_WORKSPACE'], "aasee_muenster_sentinel2.tif")
-output_directory = os.path.join(os.environ['QGIS_RESULT'], datetime.datetime.now().strftime("%Y%m%d-%H%M%S"))
+input_image = os.path.join(os.getenv('QGIS_WORKSPACE', os.getcwd()), "aasee_muenster_sentinel2.tif")
+output_directory = os.path.join(os.getenv('QGIS_RESULT', os.path.join(tempfile.gettempdir(), 'results')), datetime.datetime.now().strftime("%Y%m%d-%H%M%S"))
 make_sure_path_exists(output_directory)
 output_image = os.path.join(output_directory, "result.tif")
 

@@ -10,11 +10,29 @@ The second is based on the QGIS Desktop container by [Kartoza](https://github.co
 _All commands in this document are executed from within the repository's root directory unless otherwise noted._
 
 
-## Example
+## Example workflow: NDVI
 
-Build the base images as described below in the section "Build the container".
+A small example workflow is contained in this repository at `workflows/example`. It calculates an [NDVI](https://en.wikipedia.org/wiki/Normalized_Difference_Vegetation_Index) for a [Sentinel satellite image](https://sentinel.esa.int/web/sentinel/sentinel-data-access) of the city center of Münster, Germany.
 
-Then, while in the directory `workspace/example`, run the following commands to build the image including the example data, run the container to execute the analysis, and then extract the output files to a local directory relative to the current path. The last command removes the image from local storage.
+### With Docker Hub image
+
+There also is an automated build on Docker Hub, which you can use to execute the example:
+
+```
+docker run --name qgis_example nuest/docker-qgis-model:example
+docker cp qgis_example:/workspace/results example_results
+docker rm qgis_example
+```
+
+The following gif shows an execution of the example container.
+
+![console gif of example execution](https://media.giphy.com/media/26BRxuXyhkReDH4dO/giphy.gif)
+
+### With local image
+
+Alternatively, you can build the base images as described below in the section "Build the container" and then build the example container locally.
+
+In the directory `workspace/example`, run the following commands to build the image including the example data, run the container to execute the analysis, and then extract the output files to a local directory relative to the current path. The last command removes the image from local storage.
 
 ```
 docker build -t qgis-model-example .
@@ -27,20 +45,7 @@ docker rm qgis_example
 
 Take a look at the console - it contains several useful log statements. The directory `./example_results` contains the resulting GeoTIFF (`result.tif`) and a JPG preview file (`result.jpg`).
 
-The following gif shows an execution of the example container.
-
-![console gif of example execution](https://media.giphy.com/media/26BRxuXyhkReDH4dO/giphy.gif)
-
-## Example with Docker Hub image
-
-There also is an automated build on Docker Hub, which you can use to execute the example as well.
-
-```
-docker run --name qgis_example_hub -v <path to>/docker-qgis-model/workspace/example/:/workspace nuest/docker-qgis-model:trusty
-```
-
-
-## Example with external data
+### With external data
 
 A working example for calculating an NDVI based on a GeoTIFF is in the directory `/example`. To run it, first build the Ubuntu container and then run it with the following commands (executed from the root of this project):
 
@@ -49,6 +54,29 @@ docker build -t docker-qgis-model:trusty -f ubuntu/trusty/Dockerfile ubuntu/.
 docker run --rm -it -v $(pwd)/example/:/workspace qgis-model-ubuntu:trusty
 ```
 
+Or using the image from Docker Hub:
+
+```
+docker run --name qgis_example_hub -v <path to>/workspace/example/:/workspace nuest/docker-qgis-model:trusty
+```
+
+### With OSGeo-Live or local Linux OS
+
+The [OSGeo-Live](http://live.osgeo.org/en/index.html) DVD or VM, also have all software you need to execute the workflow. If you use QGIS under Linux, this might even work on your own desktop computer.
+
+If you want to give the example a try with OSGeo-Live, [download](http://live.osgeo.org/en/download.html) and start it and run the following commands.
+The steps are: clone the repository, copy the model file to the required location, and run the model:
+
+```
+git clone https://github.com/nuest/docker-qgis-model.git
+cd docker-qgis-model/workspace/example
+cp models/compute_NDVI.model ~/.qgis2/processing/models/docker.model
+python model.py
+```
+
+Take a look at the data in the directory `/tmp/results/<current datetime>` (the full path is contained in the logs shown in the console).
+
+To make this work, the file `model.py` uses default values for some of the environment variables that are originally defined in the Dockerfile.
 
 ## Preparations to package a workflow
 
@@ -170,14 +198,6 @@ xhost +local:docker
 docker run -it --rm -v /<path to user home>:/home/<user name> -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY=unix$DISPLAY qgis-model-debian /start.sh
 xhost -local:docker
 ```
-<!--
-docker run -it --rm -v /home/daniel/:/home/daniel -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY=unix$DISPLAY qgis-model-runner /start.sh
--->
-
-
-## Ideas/Future work
-
-* split up the Debian image into one "QGIS plus OTB plus SAGA", and one for the model runner
 
 
 ## LICENSE
