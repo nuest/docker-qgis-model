@@ -17,7 +17,7 @@ A small example workflow is contained in this repository at `workflows/example`.
 
 ### With Docker Hub image
 
-There also is an automated build on Docker Hub, which you can use to execute the example:
+There also is an automated build [on Docker Hub](https://hub.docker.com/r/nuest/docker-qgis-model), which you can use to execute the example:
 
 ```
 docker run --name qgis_example nuest/docker-qgis-model:example
