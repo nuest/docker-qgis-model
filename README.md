@@ -1,11 +1,12 @@
-# QGIS Docker container for QGIS models
+# Docker container for QGIS models
 
-This project contains two Docker containers to run [QGIS models](http://docs.qgis.org/2.0/en/docs/user_manual/processing/modeler.html) based on a model file and a minimal Python script from the command line. The Python script contains the actual model call, using all the required input data files (which a generic script cannot guess).
+This project contains Docker containers to run [QGIS models](http://docs.qgis.org/2.0/en/docs/user_manual/processing/modeler.html) based on a model file and a minimal Python script from the command line. The Python script contains the actual model call, including all the required input data files (which a generic script cannot guess).
 
-There are two ways to use the image. First, run it locally and mount the required script and data. Second, create a new Dockerfile to build an image that embeds the data.
+There are two ways to use the image. First, run it and mount the required workspacea.
+Second, create a new Dockerfile to build an image that embeds the data.
 
-The first variant is based on Ubuntu and UbuntuGIS repository. It was originally based on [Todd Stavish](https://github.com/toddstavish/Dockerfiles/tree/master/QGIS)'s work. Thanks, Todd!
-The second is based on the QGIS Desktop container by [Kartoza](https://github.com/kartoza/docker-qgis-desktop) (Thanks!), which is currently not actively developed.
+There are two types of images in this repository: the first variant is based on Ubuntu and UbuntuGIS repository. It was originally based on [Todd Stavish](https://github.com/toddstavish/Dockerfiles/tree/master/QGIS)'s work. Thanks, Todd!
+The second is based on the QGIS Desktop container by [Kartoza](https://github.com/kartoza/docker-qgis-desktop) (Thanks!), which is currently _not actively developed_.
 
 _All commands in this document are executed from within the repository's root directory unless otherwise noted._
 
@@ -64,7 +65,7 @@ docker run --name qgis_example_hub -v <path to>/workspace/example/:/workspace nu
 
 The [OSGeo-Live](http://live.osgeo.org/en/index.html) DVD or VM, also have all software you need to execute the workflow. If you use QGIS under Linux, this might even work on your own desktop computer.
 
-If you want to give the example a try with OSGeo-Live, [download](http://live.osgeo.org/en/download.html) and start it and run the following commands.
+If you want to give the example a try with OSGeo-Live, [download](http://live.osgeo.org/en/download.html) and start it and run the following commands in a terminal.
 The steps are: clone the repository, copy the model file to the required location, and run the model:
 
 ```
