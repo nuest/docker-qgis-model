@@ -12,4 +12,8 @@ COPY . /workspace
 
 # Execute the following commands _in the directory of this file_ to build and execute a self-contained image:
 # BUILD COMMAND: docker build -t qgis-model-jonjona .
-# RUN COMMAND: docker run --rm -it qgis-model-jonjona
+# RUN COMMAND: docker run --name jonjona -it qgis-model-jonjona
+# Extract results: docker cp jonjona:/workspace results
+# RUN with random centroids:
+#   docker run --name jonjona-random qgis-model-jonjona -e "QGIS_KMEANS_RANDOM_CENTROIDS=true"
+#   docker cp jonjona-random:/workspace results/random 

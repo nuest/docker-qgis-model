@@ -359,7 +359,8 @@
                         }, 
                         "kmeans_iterations": 25.0, 
                         "number_of_clusters": 3.0, 
-                        "field_to_cluster": "diff_mean"
+                        "field_to_cluster": "diff_mean", 
+                        "random_centroids": false
                     }, 
                     "active": true, 
                     "consoleName": "script:kmeansclusteringv23", 

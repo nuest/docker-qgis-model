@@ -17,7 +17,7 @@ A small example workflow is contained in this repository at `workflows/example`.
 
 ### With Docker Hub image
 
-There also is an automated build [on Docker Hub](https://hub.docker.com/r/nuest/docker-qgis-model), which you can use to execute the example:
+There also is an automated build [on Docker Hub](https://hub.docker.com/r/nuest/docker-qgis-model), which you can use to execute the example and then extract the result with the `docker cp` command:
 
 ```
 docker run --name qgis_example nuest/docker-qgis-model:example
@@ -179,7 +179,7 @@ docker build -t docker-qgis-model:trusty -t qgis-model-ubuntu:latest -f Dockerfi
 
 Note the use of the `-f` parameter to set the Dockerfile, which does not have the default name. The build context is set to the directory `/ubuntu` und the `.` at the end. This was the same `model.sh` and `util` can be used for both Dockerfiles.
 
-### Debian
+### [WIP] Debian
 
 * See directory `/debian` for the Dockerfile
 * http://kartoza.com/qgis-desktop-in-docker/

@@ -1,2 +1,3 @@
 workspace/example/results/2*
-workspace/jonjona/results/2*
+workspace/jonjona/results/*
+!workspace/jonjona/results/README.md
