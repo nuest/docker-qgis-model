@@ -19,7 +19,7 @@ A small example workflow is contained in this repository at `workflows/example`.
 
 There also is an automated build [on Docker Hub](https://hub.docker.com/r/nuest/docker-qgis-model), which you can use to execute the example and then extract the result with the `docker cp` command:
 
-```
+```bash
 docker run --name qgis_example nuest/docker-qgis-model:example
 docker cp qgis_example:/workspace/results example_results
 docker rm qgis_example
@@ -35,7 +35,7 @@ Alternatively, you can build the base images as described below in the section "
 
 In the directory `workspace/example`, run the following commands to build the image including the example data, run the container to execute the analysis, and then extract the output files to a local directory relative to the current path. The last command removes the image from local storage.
 
-```
+```bash
 docker build -t qgis-model-example .
 docker run --name qgis_example qgis-model-example
 
@@ -50,14 +50,14 @@ Take a look at the console - it contains several useful log statements. The dire
 
 A working example for calculating an NDVI based on a GeoTIFF is in the directory `/example`. To run it, first build the Ubuntu container and then run it with the following commands (executed from the root of this project):
 
-```
+```bash
 docker build -t docker-qgis-model:trusty -f ubuntu/trusty/Dockerfile ubuntu/.
 docker run --rm -it -v $(pwd)/example/:/workspace qgis-model-ubuntu:trusty
 ```
 
 Or using the image from Docker Hub:
 
-```
+```bash
 docker run --name qgis_example_hub -v <path to>/workspace/example/:/workspace nuest/docker-qgis-model:trusty
 ```
 
@@ -68,7 +68,7 @@ The [OSGeo-Live](http://live.osgeo.org/en/index.html) DVD or VM, also have all s
 If you want to give the example a try with OSGeo-Live, [download](http://live.osgeo.org/en/download.html) and start it and run the following commands in a terminal.
 The steps are: clone the repository, copy the model file to the required location, and run the model:
 
-```
+```bash
 git clone https://github.com/nuest/docker-qgis-model.git
 cd docker-qgis-model/workspace/example
 cp models/compute_NDVI.model ~/.qgis2/processing/models/docker.model
@@ -91,7 +91,7 @@ Prepare a directory with the following contents. In the remainder of these instr
 
 **Python file template:**
 
-```
+```bash
 #!/usr/bin/python
 
 # Run preparation file
@@ -140,7 +140,7 @@ Potentially useful additional options are as these:
 
 After the model has started you can access the current state of the containers log file with the command `docker exec`:
 
-```
+```bash
 docker ps
 # note the name of the container running the command /qgis/model.sh
 docker exec <container name> cat /qgis/qgis.log
@@ -164,7 +164,7 @@ See directory `/ubuntu/Dockerfile.<release name>` for the respective Dockerfile
 
 Execute the following command in the root directory `/` of this repository to build the container and name it.
 
-```
+```bash
 docker build -t docker-qgis-model:<release name> -f ubuntu/Dockerfile.<release name> ./ubuntu
 ```
 
@@ -173,7 +173,7 @@ The build context is set to `./ubuntu`, the Dockerfile name is configured explic
 The following command, executed from within the directory `/ubuntu`, builds the image for Ubuntu 14.04 and tags it as being the "latest".
 Ubuntu 16.04 is still under development.
 
-```
+```bash
 docker build -t docker-qgis-model:trusty -t qgis-model-ubuntu:latest -f Dockerfile.trusty .
 ```
 
@@ -188,13 +188,13 @@ Note the use of the `-f` parameter to set the Dockerfile, which does not have th
 
 Execute the following command to build the container and name it.
 
-```
+```bash
 docker build -t qgis-model-debian debian/.
 ```
 
 You can also run an interactive version of this container (with QGIS user interface) by adding the following parameters to the `docker run` call, for details see [the base images starth.sh script](https://github.com/kartoza/docker-qgis-desktop/blob/develop/2.14/start.sh).
 
-```
+```bash
 xhost +local:docker
 docker run -it --rm -v /<path to user home>:/home/<user name> -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY=unix$DISPLAY qgis-model-debian /start.sh
 xhost -local:docker
