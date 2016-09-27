@@ -181,17 +181,17 @@ docker build -t docker-qgis-model:trusty -t qgis-model-ubuntu:latest -f Dockerfi
 
 Note the use of the `-f` parameter to set the Dockerfile, which does not have the default name. The build context is set to the directory `/ubuntu` und the `.` at the end. This was the same `model.sh` and `util` can be used for both Dockerfiles.
 
-### [WIP] Debian
+### [WIP] Kartoza
 
-* See directory `/debian` for the Dockerfile
-* http://kartoza.com/qgis-desktop-in-docker/
-* https://github.com/kartoza/docker-qgis-desktop/tree/develop/2.14
-  * mounts X11 (and dis/enables xhost, for minimum security)
+* See directory `/kartoza` for the Dockerfile
+* Base Dockerfiles on GitHub: [https://github.com/kartoza/docker-qgis-desktop/tree/master/2.8](https://github.com/kartoza/docker-qgis-desktop/tree/master/2.8)
 
-Execute the following command to build the container and name it.
+The Kartoza images by Tim Sutton are based on `Ubuntu 16.04`. The following commands build the image with a tag and then run the image based on that tag with the example workspace.
 
 ```bash
-docker build -t qgis-model-debian debian/.
+docker build -t qgis-model-kartoza kartoza/.
+
+docker run --rm -it -v $(pwd)/workspace/example/:/workspace qgis-model-kartoza
 ```
 
 You can also run an interactive version of this container (with QGIS user interface) by adding the following parameters to the `docker run` call, for details see [the base images starth.sh script](https://github.com/kartoza/docker-qgis-desktop/blob/develop/2.14/start.sh).
