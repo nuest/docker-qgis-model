@@ -29,9 +29,19 @@ QgsMessageLog.instance().messageReceived.connect( writelogmessage )
 
 # Import and initialize Processing framework, see https://docs.qgis.org/2.8/en/docs/user_manual/processing/console.html
 sys.path.append('/usr/share/qgis/python/plugins')
-from processing.core.Processing import Processing
+
+import warnings; # Silence the error "UserWarning: Matplotlib is building the font cache using fc-list. This may take a moment.", see https://github.com/matplotlib/matplotlib/issues/5836#issuecomment-179592427
+with warnings.catch_warnings():
+    warnings.simplefilter("ignore"); 
+    from processing.core.Processing import Processing
+    from processing.core.Processing import ProcessingConfig
+
 Processing.initialize()
 import processing
+
+# Manually set the OTB path, see https://github.com/qgis/QGIS/blob/master/python/plugins/processing/core/ProcessingConfig.py and https://github.com/qgis/QGIS/blob/master/python/plugins/processing/algs/otb/OTBUtils.py
+ProcessingConfig.setSettingValue("OTB_FOLDER", os.getenv('OTB_FOLDER', ''))
+ProcessingConfig.setSettingValue("OTB_LIB_FOLDER", os.getenv('OTB_LIB_FOLDER', ''))
 
 print "### model.py ### Algorithm help and options:"
 processing.alghelp("modeler:docker")

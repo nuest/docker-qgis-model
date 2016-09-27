@@ -20,12 +20,12 @@ from timeit import default_timer as timer
 from qgis.core import *
 import qgis.utils
 
-print "##### Preparing..."
+print("##### Preparing...")
 # Initialize QGIS Application > https://docs.qgis.org/2.8/en/docs/user_manual/processing/console.html
 app = QgsApplication([], True)
 QgsApplication.setPrefixPath("/usr", True)
 QgsApplication.initQgis()
-print "##### QgsApplication initialized."
+print("##### QgsApplication initialized.")
 
 # Enable logging
 logfilename = os.getenv('QGIS_LOGFILE', os.path.join(tempfile.gettempdir(), 'qgis.log'))
@@ -33,18 +33,28 @@ def writelogmessage(message, tag, level):
     with open( logfilename, 'a' ) as logfile:
         logfile.write( '{}({}): {}\n'.format( tag, level, message ) )
 QgsMessageLog.instance().messageReceived.connect( writelogmessage )
-print "##### QGIS logs to file %s" % logfilename
+print("##### QGIS logs to file %s" % logfilename)
 
-print "##### QGIS settings:"
-print QgsApplication.showSettings()
+print("##### QGIS settings:")
+print(QgsApplication.showSettings())
 
 # Import and initialize Processing framework
 sys.path.append('/usr/share/qgis/python/plugins')
-from processing.core.Processing import Processing
+
+import warnings; # Silence the error "UserWarning: Matplotlib is building the font cache using fc-list. This may take a moment.", see https://github.com/matplotlib/matplotlib/issues/5836#issuecomment-179592427
+with warnings.catch_warnings():
+    warnings.simplefilter("ignore"); 
+    from processing.core.Processing import Processing
+    from processing.core.Processing import ProcessingConfig
+
 Processing.initialize()
 import processing
 
-print "###### Algorithm help and options:"
+# Manually set the OTB path, see https://github.com/qgis/QGIS/blob/master/python/plugins/processing/core/ProcessingConfig.py and https://github.com/qgis/QGIS/blob/master/python/plugins/processing/algs/otb/OTBUtils.py
+ProcessingConfig.setSettingValue("OTB_FOLDER", os.getenv('OTB_FOLDER', ''))
+ProcessingConfig.setSettingValue("OTB_LIB_FOLDER", os.getenv('OTB_LIB_FOLDER', ''))
+
+print("###### Algorithm help and options:")
 processing.alghelp("modeler:docker")
 processing.algoptions("modeler:docker")
 
@@ -63,20 +73,20 @@ output_directory = os.path.join(os.getenv('QGIS_RESULT', os.path.join(tempfile.g
 make_sure_path_exists(output_directory)
 output_image = os.path.join(output_directory, "result.tif")
 
-print "###### Saving output to file to\t\t" + output_image
+print("###### Saving output to file to\t\t" + output_image)
 
-print "###### Start processing at " + strftime("%Y-%m-%d %H:%M:%S", gmtime()) + " ..."
+print("###### Start processing at " + strftime("%Y-%m-%d %H:%M:%S", gmtime()) + " ...")
 start = timer()
 
 processing.runalg("modeler:docker", input_image, output_image)
 
 end = timer()
-print "###### Processing complete at " + strftime("%Y-%m-%d %H:%M:%S", gmtime()) + ", took " + str(end-start) + " seconds"
+print("###### Processing complete at " + strftime("%Y-%m-%d %H:%M:%S", gmtime()) + ", took " + str(end-start) + " seconds")
 
-print "###### Output image info:"
+print("###### Output image info:")
 os.system("gdalinfo " + output_image)
 
 
 output_preview = os.path.join(output_directory, "result.jpg")
 os.system("gdal_translate -of JPEG -scale " + output_image + " " + output_preview)
-print "###### Created jpg preview for result.tif"
+print("###### Created jpg preview for result.tif")

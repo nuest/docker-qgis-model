@@ -111,14 +111,14 @@ output="/workspace/data/output.file"
 print "Start processing..."
 processing.runalg("modeler:docker",input,output)
 print "Processing complete"
-``` 
+```
 
 
 ## Run the model with a mounted workspace
 
 Build the container (see below) and start it with the following command, mounting your `workspace` directory to `/workspace` and replacing `<platform>` with either `debian` or `ubuntu`. In the latter case we recommend to explicitly select the Ubuntu version and thereby the QGIS version by appending either the tag `:trusty` or `:xenial`. If you want to publish your whole model in a self-contained image, see next section.
 
-```
+```bash
 docker run --rm -it -v /<path to workspace dir>:/workspace qgis-model-<platform>
 ```
 
@@ -127,11 +127,13 @@ docker run --rm -it -v /<path to workspace dir>:/workspace qgis-model-<platform>
 If you want to run the model manually (i.e. to debug etc.) append `/bin/bash` to the command to override the default command, then execute `./qgis/model.sh` manually.
 
 The used options are as follows:
+
 * `--rm` will remove the container as soon as it ends
 * `-it` ensures you can see the stdout logs
 * The startup script will copy all files named `*.model` from the mounted directory
 
 Potentially useful additional options are as these:
+
 * `--name="qgis"` to name the running container for easier identification
 * To *execute a specific model*, you can overwrite the environment variable `QGIS_MODELFILE` which has the default value `/workspace/models/*.model`. This is useful if you have a working directory with more than one model file. Specify the environment variable when you run the container: `docker run --rm -it -v /<path to workspace dir>:/workspace -e QGIS_MODELFILE=/workspace/models/mymodel.model qgis-model-<platform>`
 * If you want to run the model manually (i.e. to debug etc.) add the parameter `--entrypoint=/bin/bash` to the command (before the image name) to override the default entrypoint and get a bash shell, then execute `./qgis/model.sh` manually.
