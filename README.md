@@ -5,11 +5,11 @@ This project contains Docker containers to run [QGIS models](http://docs.qgis.or
 There are two ways to use the image. First, run it and mount the required workspacea.
 Second, create a new Dockerfile to build an image that embeds the data.
 
-There are two types of images in this repository: the first variant is based on Ubuntu and UbuntuGIS repository. It was originally based on [Todd Stavish](https://github.com/toddstavish/Dockerfiles/tree/master/QGIS)'s work. Thanks, Todd!
-The second is based on the QGIS Desktop container by [Kartoza](https://github.com/kartoza/docker-qgis-desktop) (Thanks!), which is currently _not actively developed_.
+There are two image configurations in this repository: 
+The first one is based on Ubuntu with a variant based on the UbuntuGIS repository. It was originally based on [Todd Stavish](https://github.com/toddstavish/Dockerfiles/tree/master/QGIS)'s work. Thanks, Todd!
+The second is based on the QGIS Desktop container by [Kartoza](https://github.com/kartoza/docker-qgis-desktop) (Thanks!).
 
-_All commands in this document are executed from within the repository's root directory unless otherwise noted._
-
+_NB_: All commands in this document are executed from within the repository's root directory unless otherwise noted.
 
 ## Example workflow: NDVI
 
@@ -113,7 +113,6 @@ processing.runalg("modeler:docker",input,output)
 print "Processing complete"
 ```
 
-
 ## Run the model with a mounted workspace
 
 Build the container (see below) and start it with the following command, mounting your `workspace` directory to `/workspace` and replacing `<platform>` with either `debian` or `ubuntu`. In the latter case we recommend to explicitly select the Ubuntu version and thereby the QGIS version by appending either the tag `:trusty` or `:xenial`. If you want to publish your whole model in a self-contained image, see next section.
@@ -150,43 +149,35 @@ docker exec <container name> cat /qgis/qgis.log
 
 Alternatively to `cat`, you can use `less` or any other tools available in the container.
 
-
 ## Create a self-contained image
 
 The previous run command mounts a directory of the host computer to the container, which is suitable for model development. If you want to publish a self-contained Docker image, you can create a minimal Dockerfile based on the images created above, which simply copies your data into the container, then build and execute that image.
 
 Be aware that you to access the output of the process you must not use `--rm` but keep the container to extract the data and delete it afterwards. See above in section "Example with embedded data" for the required commands.
 
-
 ## Build the container
 
 ### Ubuntu
 
-See directory `/ubuntu/Dockerfile.<release name>` for the respective Dockerfile
+See directory `/ubuntu/Dockerfile.<release name>` for the respective Dockerfile.
 
 Execute the following command in the root directory `/` of this repository to build the container and name it.
 
 ```bash
-docker build -t docker-qgis-model:<release name> -f ubuntu/Dockerfile.<release name> ./ubuntu
+docker build -t qgis-model:<release name> -f ubuntu/Dockerfile.<release name> ./ubuntu
 ```
 
-The build context is set to `./ubuntu`, the Dockerfile name is configured explicitly.
+The build context is set to `./ubuntu` so that the required model file can be copied. The Dockerfile name is configured explicitly with the `-f` option.
 
-The following command, executed from within the directory `/ubuntu`, builds the image for Ubuntu 14.04 and tags it as being the "latest".
-Ubuntu 16.04 is still under development.
+The following command builds the image for Ubuntu 16.04 and tags it as being the "latest".
 
 ```bash
-docker build -t docker-qgis-model:trusty -t qgis-model-ubuntu:latest -f Dockerfile.trusty .
+docker build -t qgis-model:xenial -t qgis-model:latest -f Dockerfile.xenial ./ubuntu
 ```
 
-Note the use of the `-f` parameter to set the Dockerfile, which does not have the default name. The build context is set to the directory `/ubuntu` und the `.` at the end. This was the same `model.sh` and `util` can be used for both Dockerfiles.
+### Kartoza
 
-### [WIP] Kartoza
-
-* See directory `/kartoza` for the Dockerfile
-* Base Dockerfiles on GitHub: [https://github.com/kartoza/docker-qgis-desktop/tree/master/2.8](https://github.com/kartoza/docker-qgis-desktop/tree/master/2.8)
-
-The Kartoza images by Tim Sutton are based on `Ubuntu 16.04`. The following commands build the image with a tag and then run the image based on that tag with the example workspace.
+See directory `/kartoza` for the Dockerfile, which uses [kartoza/qgis-desktop](https://hub.docker.com/r/kartoza/qgis-desktop/) by Tim Sutton, using the tag `2.8` as the base image. Find the Dockerfiles on GitHub: [https://github.com/kartoza/docker-qgis-desktop/tree/master/2.8](https://github.com/kartoza/docker-qgis-desktop/tree/master/2.8). The Kartoza images are based on `Ubuntu 16.04`. The following commands build the image with a tag and then run a container on that tag with the example workspace.
 
 ```bash
 docker build -t qgis-model-kartoza kartoza/.
@@ -198,10 +189,9 @@ You can also run an interactive version of this container (with QGIS user interf
 
 ```bash
 xhost +local:docker
-docker run -it --rm -v /<path to user home>:/home/<user name> -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY=unix$DISPLAY qgis-model-debian /start.sh
+docker run -it --rm -v /<path to user home>:/home/<user name> -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY=unix$DISPLAY qgis-model-kartoza /start.sh
 xhost -local:docker
 ```
-
 
 ## LICENSE
 
