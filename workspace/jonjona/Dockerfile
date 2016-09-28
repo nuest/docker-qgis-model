@@ -10,6 +10,19 @@ MAINTAINER Daniel Nüst <daniel.nuest@uni-muenster.de>
 
 COPY . /workspace
 
+LABEL de.ifgi.qgis-model.options '[ \
+    { "id": "MODEL_INPUT_1", \
+      "name": "first setting", \
+      "value": "100", \
+      "comment": "this is a comment for the first setting" }, \
+    { "id": "MODEL_INPUT_2", \
+      "name": "second setting", \
+      "value": "huge" }, \
+    { "id": "MODEL_INPUT_RAND_CENTROIDS", \
+      "name": "Random centroids for k-Means", \
+      "value": "false", \
+      "comment": "If the centroids are non-random for the k-Means algorithm, the results are reproducible between model runs." }]'
+
 # Execute the following commands _in the directory of this file_ to build and execute a self-contained image:
 # BUILD COMMAND: docker build -t qgis-model-jonjona .
 # RUN COMMAND: docker run --name jonjona -it qgis-model-jonjona
