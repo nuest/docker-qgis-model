@@ -1,6 +1,6 @@
 # Data
 
-The files `Jonjona_after.jpg` and `Jonjona_before` in this directory are courtesy of DigitalGlobe Inc. Data reproduced with permission granted via email by Flannery, Matthew <Matthew.Flannery@edelman.com> on June 28, 2016.
+The files `Jonjona_after.jpg` and `Jonjona_before.jpg` in this directory are courtesy of DigitalGlobe Inc. Data reproduced with permission granted via email by Flannery, Matthew <Matthew.Flannery@edelman.com> on June 28, 2016.
 
 Copyright 2016 DigitalGlobe
 
