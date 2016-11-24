@@ -10,13 +10,6 @@ MAINTAINER Daniel Nüst <daniel.nuest@uni-muenster.de>
 
 COPY . /workspace
 
-# Install previously unused library
-RUN apt-get update \
-    && apt-get install -qqy --no-install-recommends \
-        python-shapely \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
-
 LABEL de.ifgi.qgis-model.options '[ \
     { "id": "settlement_threshold", \
       "name": "settlement detection sensitivity", \

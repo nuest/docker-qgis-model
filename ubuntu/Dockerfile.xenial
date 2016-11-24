@@ -17,6 +17,7 @@ RUN apt-get update \
         python-gdal \
         python-scipy \
         python-numpy \
+        python-shapely \
         qgis=$QGIS_VERSION \
         qgis-providers=$QGIS_VERSION \
         python-qgis-common=$QGIS_VERSION \
