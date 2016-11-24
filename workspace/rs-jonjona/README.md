@@ -1,4 +1,11 @@
+# Jonjona change analysis
 
+## Run it
+
+```bash
+docker run -it --name jonjona nuest/qgis-model:rs-jonjona
+docker cp jonjona:/workspace .
+```
 
 ## Analysis parameters
 

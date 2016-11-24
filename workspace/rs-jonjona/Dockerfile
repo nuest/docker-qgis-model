@@ -5,8 +5,7 @@
 # You may obtain a copy of the License at
 #
 #   http://www.apache.org/licenses/LICENSE-2.0
-#FROM nuest/qgis-model:xenial-multi-model
-FROM xenial-multi-model
+FROM nuest/qgis-model:xenial-multimodel
 MAINTAINER Daniel Nüst <daniel.nuest@uni-muenster.de>
 
 COPY . /workspace
