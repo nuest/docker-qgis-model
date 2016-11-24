@@ -1,0 +1,16 @@
+# Copyright 2016 Daniel Nüst
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#   http://www.apache.org/licenses/LICENSE-2.0
+FROM nuest/qgis-model:xenial
+MAINTAINER Daniel Nüst <daniel.nuest@uni-muenster.de>
+
+# Use multi-model capabile model script
+WORKDIR /qgis
+COPY multi-model.sh model.sh
+RUN chmod 0755 model.sh
+
+# docker build --tag xenial-multi-model --file Dockerfile.xenial-multimodel .

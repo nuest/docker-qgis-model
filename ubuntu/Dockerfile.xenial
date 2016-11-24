@@ -90,4 +90,4 @@ VOLUME $QGIS_WORKSPACE
 
 ENTRYPOINT ["/bin/bash", "/qgis/model.sh"]
 
-# docker build --tag xenial-default-qgis --file Dockerfile.xenial-fixed .
+# docker build --tag xenial-default-qgis --file Dockerfile.xenial .

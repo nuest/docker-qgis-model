@@ -25,8 +25,8 @@ cat /usr/share/qgis/python/plugins/processing/metadata.txt | grep "version")
 
 # We expect the container is started with _one_ model file configured via environment variable
 mkdir -p $QGIS_USER_MODELDIR
-echo "### model.sh ### Using QGIS model file" $(ls $QGIS_MODELFILE)
-cp $QGIS_MODELFILE $QGIS_USER_MODELDIR/docker.model
+echo "### model.sh ### Using QGIS model files" $(ls $QGIS_MODELFILE)
+cp $QGIS_MODELFILE $QGIS_USER_MODELDIR
 echo "### model.sh ### Model files in directory" $QGIS_USER_MODELDIR":" $(ls $QGIS_USER_MODELDIR)
 
 # We expect the container is started with script files configured via environment variable
