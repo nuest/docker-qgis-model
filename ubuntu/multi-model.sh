@@ -17,7 +17,7 @@ echo "### model.sh ### Installed software versions:"
 python --version
 gdalmanage --version
 saga_cmd --version --version 2>&1 | head -1
-grass --version 2>&1 | head -1
+#grass --version 2>&1 | head -1
 echo "Orfeo Toolbox (OTB)" $(otbcli_BandMath 2>&1 | grep 'version')
 python -c 'import qgis.utils; print "QGIS: %s" % qgis.utils.QGis.QGIS_VERSION'
 echo "QGIS processing plugin:" $(
