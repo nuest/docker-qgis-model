@@ -59,7 +59,7 @@ RUN ./configure \
 # Install OTB, see https://www.orfeo-toolbox.org/CookBook/Installation.html
 ENV OTB_VERSION OTB-5.6.1-Linux64
 WORKDIR /otb
-RUN wget https://www.orfeo-toolbox.org/packages/$OTB_VERSION.run -q \
+RUN wget https://www.orfeo-toolbox.org/packages/archives/OTB/$OTB_VERSION.run -q \
     && chmod +x $OTB_VERSION.run \
     && ./$OTB_VERSION.run \
     && rm $OTB_VERSION.run
