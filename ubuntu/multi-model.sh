@@ -34,6 +34,10 @@ mkdir -p $QGIS_USER_SCRIPTDIR
 cp $QGIS_SCRIPTFILE $QGIS_USER_SCRIPTDIR
 echo "### model.sh ### Script files directory contents" $QGIS_USER_SCRIPTDIR":" $(ls $QGIS_USER_SCRIPTDIR)
 
+echo " "
+echo "### model.sh ### environment:"
+printenv
+
 # Run QGIS headless, see https://marc.info/?l=qgis-developer&m=141824118828451&w=2 using X Window Virtual Framebuffer
 # We except the actual model file to be configured via environment variable
 echo " "
