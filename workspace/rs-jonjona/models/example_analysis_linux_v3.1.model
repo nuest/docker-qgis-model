@@ -1,0 +1,1106 @@
+{
+    "values": {
+        "inputs": {
+            "preconflictimage": {
+                "values": {
+                    "pos": {
+                        "values": {
+                            "y": 33.365225743315875, 
+                            "x": 727.2883107630535
+                        }, 
+                        "class": "point"
+                    }, 
+                    "param": {
+                        "values": {
+                            "isAdvanced": false, 
+                            "name": "preconflictimage", 
+                            "showSublayersDialog": true, 
+                            "default": null, 
+                            "value": null, 
+                            "exported": null, 
+                            "hidden": false, 
+                            "optional": false, 
+                            "description": "Pre-conflict image"
+                        }, 
+                        "class": "processing.core.parameters.ParameterRaster"
+                    }
+                }, 
+                "class": "processing.modeler.ModelerAlgorithm.ModelerParameter"
+            }, 
+            "difftoref": {
+                "values": {
+                    "pos": {
+                        "values": {
+                            "y": 130.41524866576174, 
+                            "x": 396.6118998310145
+                        }, 
+                        "class": "point"
+                    }, 
+                    "param": {
+                        "values": {
+                            "isAdvanced": false, 
+                            "name": "difftoref", 
+                            "default": "0.3", 
+                            "value": null, 
+                            "multiline": false, 
+                            "hidden": false, 
+                            "optional": false, 
+                            "description": "Change_analysis_threshold"
+                        }, 
+                        "class": "processing.core.parameters.ParameterString"
+                    }
+                }, 
+                "class": "processing.modeler.ModelerAlgorithm.ModelerParameter"
+            }, 
+            "STRING_SETTLEMENTTHRESHOLD": {
+                "values": {
+                    "pos": {
+                        "values": {
+                            "y": 41.0897226073219, 
+                            "x": 397.2398640940091
+                        }, 
+                        "class": "point"
+                    }, 
+                    "param": {
+                        "values": {
+                            "isAdvanced": false, 
+                            "name": "STRING_SETTLEMENTTHRESHOLD", 
+                            "default": "0.3", 
+                            "value": null, 
+                            "multiline": false, 
+                            "hidden": false, 
+                            "optional": false, 
+                            "description": "Settlement_threshold"
+                        }, 
+                        "class": "processing.core.parameters.ParameterString"
+                    }
+                }, 
+                "class": "processing.modeler.ModelerAlgorithm.ModelerParameter"
+            }, 
+            "postconflictimage": {
+                "values": {
+                    "pos": {
+                        "values": {
+                            "y": 32.77072988943777, 
+                            "x": 952.5139025189276
+                        }, 
+                        "class": "point"
+                    }, 
+                    "param": {
+                        "values": {
+                            "isAdvanced": false, 
+                            "name": "postconflictimage", 
+                            "showSublayersDialog": true, 
+                            "default": null, 
+                            "value": null, 
+                            "exported": null, 
+                            "hidden": false, 
+                            "optional": false, 
+                            "description": "Post-conflict image"
+                        }, 
+                        "class": "processing.core.parameters.ParameterRaster"
+                    }
+                }, 
+                "class": "processing.modeler.ModelerAlgorithm.ModelerParameter"
+            }, 
+            "settlementsize": {
+                "values": {
+                    "pos": {
+                        "values": {
+                            "y": 82.0, 
+                            "x": 397.0
+                        }, 
+                        "class": "point"
+                    }, 
+                    "param": {
+                        "values": {
+                            "isAdvanced": false, 
+                            "name": "settlementsize", 
+                            "default": "0", 
+                            "value": null, 
+                            "multiline": false, 
+                            "hidden": false, 
+                            "optional": false, 
+                            "description": "Settlement_size"
+                        }, 
+                        "class": "processing.core.parameters.ParameterString"
+                    }
+                }, 
+                "class": "processing.modeler.ModelerAlgorithm.ModelerParameter"
+            }
+        }, 
+        "helpContent": {}, 
+        "group": "examples", 
+        "name": "example_analysis_linux_v3.1", 
+        "algs": {
+            "SAGAIDENTITY_1": {
+                "values": {
+                    "name": "SAGAIDENTITY_1", 
+                    "paramsFolded": true, 
+                    "outputs": {}, 
+                    "pos": {
+                        "values": {
+                            "y": 607.4706115857506, 
+                            "x": 948.542921740764
+                        }, 
+                        "class": "point"
+                    }, 
+                    "outputsFolded": true, 
+                    "dependencies": [], 
+                    "params": {
+                        "A": {
+                            "values": {
+                                "alg": "SAGAPOLYGONSHAPEINDICES_1", 
+                                "output": "INDEX"
+                            }, 
+                            "class": "processing.modeler.ModelerAlgorithm.ValueFromOutput"
+                        }, 
+                        "B": {
+                            "values": {
+                                "alg": "MODELERDETECT_SETTLEMENTS_ON_EDGELAYER_1", 
+                                "output": "OUTPUT_LAYER_ALGQGISREFACTORFIELDS_1"
+                            }, 
+                            "class": "processing.modeler.ModelerAlgorithm.ValueFromOutput"
+                        }, 
+                        "SPLIT": false
+                    }, 
+                    "active": true, 
+                    "consoleName": "saga:identity", 
+                    "description": "Identify super-objects"
+                }, 
+                "class": "processing.modeler.ModelerAlgorithm.Algorithm"
+            }, 
+            "SAGAPOLYGONSHAPEINDICES_1": {
+                "values": {
+                    "name": "SAGAPOLYGONSHAPEINDICES_1", 
+                    "paramsFolded": true, 
+                    "outputs": {}, 
+                    "pos": {
+                        "values": {
+                            "y": 538.7407609765205, 
+                            "x": 948.7555774197303
+                        }, 
+                        "class": "point"
+                    }, 
+                    "outputsFolded": true, 
+                    "dependencies": [], 
+                    "params": {
+                        "SHAPES": {
+                            "values": {
+                                "alg": "QGISREFACTORFIELDS_1", 
+                                "output": "OUTPUT_LAYER"
+                            }, 
+                            "class": "processing.modeler.ModelerAlgorithm.ValueFromOutput"
+                        }
+                    }, 
+                    "active": true, 
+                    "consoleName": "saga:polygonshapeindices", 
+                    "description": "Compute Shape"
+                }, 
+                "class": "processing.modeler.ModelerAlgorithm.Algorithm"
+            }, 
+            "OTBGRAYSCALEMORPHOLOGICALOPERATIONCLOSING_1": {
+                "values": {
+                    "name": "OTBGRAYSCALEMORPHOLOGICALOPERATIONCLOSING_1", 
+                    "paramsFolded": true, 
+                    "outputs": {}, 
+                    "pos": {
+                        "values": {
+                            "y": 245.99511455844353, 
+                            "x": 511.2349688199304
+                        }, 
+                        "class": "point"
+                    }, 
+                    "outputsFolded": true, 
+                    "dependencies": [], 
+                    "params": {
+                        "-in": {
+                            "values": {
+                                "alg": "OTBRESCALEIMAGE_1", 
+                                "output": "-out"
+                            }, 
+                            "class": "processing.modeler.ModelerAlgorithm.ValueFromOutput"
+                        }, 
+                        "-structype.ball.xradius": 3.0, 
+                        "-channel": 1.0, 
+                        "-ram": 128.0, 
+                        "-structype": 0, 
+                        "-filter": 0
+                    }, 
+                    "active": true, 
+                    "consoleName": "otb:grayscalemorphologicaloperationclosing", 
+                    "description": "Pre-conflict morphological closing"
+                }, 
+                "class": "processing.modeler.ModelerAlgorithm.Algorithm"
+            }, 
+            "OTBDIMENSIONALITYREDUCTIONPCA_2": {
+                "values": {
+                    "name": "OTBDIMENSIONALITYREDUCTIONPCA_2", 
+                    "paramsFolded": true, 
+                    "outputs": {}, 
+                    "pos": {
+                        "values": {
+                            "y": 109.55866769857062, 
+                            "x": 953.471719759889
+                        }, 
+                        "class": "point"
+                    }, 
+                    "outputsFolded": true, 
+                    "dependencies": [], 
+                    "params": {
+                        "-nbcomp": 1.0, 
+                        "-normalize": true, 
+                        "-method": 0, 
+                        "-in": {
+                            "values": {
+                                "name": "postconflictimage"
+                            }, 
+                            "class": "processing.modeler.ModelerAlgorithm.ValueFromInput"
+                        }
+                    }, 
+                    "active": true, 
+                    "consoleName": "otb:dimensionalityreductionpca", 
+                    "description": "Post-conflict PCA"
+                }, 
+                "class": "processing.modeler.ModelerAlgorithm.Algorithm"
+            }, 
+            "OTBDIMENSIONALITYREDUCTIONPCA_1": {
+                "values": {
+                    "name": "OTBDIMENSIONALITYREDUCTIONPCA_1", 
+                    "paramsFolded": true, 
+                    "outputs": {}, 
+                    "pos": {
+                        "values": {
+                            "y": 110.27073404500663, 
+                            "x": 726.7594416628233
+                        }, 
+                        "class": "point"
+                    }, 
+                    "outputsFolded": true, 
+                    "dependencies": [], 
+                    "params": {
+                        "-nbcomp": 1.0, 
+                        "-normalize": true, 
+                        "-method": 0, 
+                        "-in": {
+                            "values": {
+                                "name": "preconflictimage"
+                            }, 
+                            "class": "processing.modeler.ModelerAlgorithm.ValueFromInput"
+                        }
+                    }, 
+                    "active": true, 
+                    "consoleName": "otb:dimensionalityreductionpca", 
+                    "description": "Pre-conflict PCA"
+                }, 
+                "class": "processing.modeler.ModelerAlgorithm.Algorithm"
+            }, 
+            "OTBEDGEEXTRACTIONTOUZI_1": {
+                "values": {
+                    "name": "OTBEDGEEXTRACTIONTOUZI_1", 
+                    "paramsFolded": true, 
+                    "outputs": {}, 
+                    "pos": {
+                        "values": {
+                            "y": 245.4761485807044, 
+                            "x": 726.3969367937535
+                        }, 
+                        "class": "point"
+                    }, 
+                    "outputsFolded": true, 
+                    "dependencies": [], 
+                    "params": {
+                        "-channel": 1.0, 
+                        "-ram": 128.0, 
+                        "-filter": 0, 
+                        "-filter.touzi.xradius": 1.0, 
+                        "-in": {
+                            "values": {
+                                "alg": "OTBRESCALEIMAGE_1", 
+                                "output": "-out"
+                            }, 
+                            "class": "processing.modeler.ModelerAlgorithm.ValueFromOutput"
+                        }
+                    }, 
+                    "active": true, 
+                    "consoleName": "otb:edgeextractiontouzi", 
+                    "description": "Pre-conflict edge detection"
+                }, 
+                "class": "processing.modeler.ModelerAlgorithm.Algorithm"
+            }, 
+            "OTBEDGEEXTRACTIONTOUZI_2": {
+                "values": {
+                    "name": "OTBEDGEEXTRACTIONTOUZI_2", 
+                    "paramsFolded": true, 
+                    "outputs": {}, 
+                    "pos": {
+                        "values": {
+                            "y": 245.72302841890732, 
+                            "x": 953.468126209373
+                        }, 
+                        "class": "point"
+                    }, 
+                    "outputsFolded": true, 
+                    "dependencies": [], 
+                    "params": {
+                        "-channel": 1.0, 
+                        "-ram": 128.0, 
+                        "-filter": 0, 
+                        "-filter.touzi.xradius": 1.0, 
+                        "-in": {
+                            "values": {
+                                "alg": "OTBRESCALEIMAGE_2", 
+                                "output": "-out"
+                            }, 
+                            "class": "processing.modeler.ModelerAlgorithm.ValueFromOutput"
+                        }
+                    }, 
+                    "active": true, 
+                    "consoleName": "otb:edgeextractiontouzi", 
+                    "description": "Post-conflict edge detection"
+                }, 
+                "class": "processing.modeler.ModelerAlgorithm.Algorithm"
+            }, 
+            "QGISPOLYGONCENTROIDS_2": {
+                "values": {
+                    "name": "QGISPOLYGONCENTROIDS_2", 
+                    "paramsFolded": true, 
+                    "outputs": {}, 
+                    "pos": {
+                        "values": {
+                            "y": 1375.4316420262155, 
+                            "x": 734.1262755792345
+                        }, 
+                        "class": "point"
+                    }, 
+                    "outputsFolded": true, 
+                    "dependencies": [], 
+                    "params": {
+                        "INPUT_LAYER": {
+                            "values": {
+                                "alg": "QGISEXTRACTBYATTRIBUTE_5", 
+                                "output": "OUTPUT"
+                            }, 
+                            "class": "processing.modeler.ModelerAlgorithm.ValueFromOutput"
+                        }
+                    }, 
+                    "active": true, 
+                    "consoleName": "qgis:polygoncentroids", 
+                    "description": "Polygon centroids"
+                }, 
+                "class": "processing.modeler.ModelerAlgorithm.Algorithm"
+            }, 
+            "SCRIPTKMEANSCLUSTERINGV23_1": {
+                "values": {
+                    "name": "SCRIPTKMEANSCLUSTERINGV23_1", 
+                    "paramsFolded": true, 
+                    "outputs": {}, 
+                    "pos": {
+                        "values": {
+                            "y": 743.6529996920809, 
+                            "x": 948.5721553403032
+                        }, 
+                        "class": "point"
+                    }, 
+                    "outputsFolded": true, 
+                    "dependencies": [], 
+                    "params": {
+                        "input": {
+                            "values": {
+                                "alg": "SCRIPTDIFFTOLOCALREFV13_2", 
+                                "output": "outputLayer"
+                            }, 
+                            "class": "processing.modeler.ModelerAlgorithm.ValueFromOutput"
+                        }, 
+                        "kmeans_iterations": 25.0, 
+                        "random_centroids": false, 
+                        "number_of_clusters": 3.0, 
+                        "field_to_cluster": "dif_to_ref"
+                    }, 
+                    "active": true, 
+                    "consoleName": "script:kmeansclusteringv23", 
+                    "description": "Kmeans clustering"
+                }, 
+                "class": "processing.modeler.ModelerAlgorithm.Algorithm"
+            }, 
+            "QGISZONALSTATISTICS_4": {
+                "values": {
+                    "name": "QGISZONALSTATISTICS_4", 
+                    "paramsFolded": true, 
+                    "outputs": {}, 
+                    "pos": {
+                        "values": {
+                            "y": 1083.6615470215445, 
+                            "x": 949.0809532236146
+                        }, 
+                        "class": "point"
+                    }, 
+                    "outputsFolded": true, 
+                    "dependencies": [], 
+                    "params": {
+                        "INPUT_RASTER": {
+                            "values": {
+                                "alg": "OTBGRAYSCALEMORPHOLOGICALOPERATIONCLOSING_1", 
+                                "output": "-out"
+                            }, 
+                            "class": "processing.modeler.ModelerAlgorithm.ValueFromOutput"
+                        }, 
+                        "COLUMN_PREFIX": "clpre_", 
+                        "RASTER_BAND": 1.0, 
+                        "GLOBAL_EXTENT": false, 
+                        "INPUT_VECTOR": {
+                            "values": {
+                                "alg": "QGISZONALSTATISTICS_3", 
+                                "output": "OUTPUT_LAYER"
+                            }, 
+                            "class": "processing.modeler.ModelerAlgorithm.ValueFromOutput"
+                        }
+                    }, 
+                    "active": true, 
+                    "consoleName": "qgis:zonalstatistics", 
+                    "description": "Compute pre-conflict closing stats"
+                }, 
+                "class": "processing.modeler.ModelerAlgorithm.Algorithm"
+            }, 
+            "QGISZONALSTATISTICS_3": {
+                "values": {
+                    "name": "QGISZONALSTATISTICS_3", 
+                    "paramsFolded": true, 
+                    "outputs": {}, 
+                    "pos": {
+                        "values": {
+                            "y": 1015.4314038258954, 
+                            "x": 948.6095995916875
+                        }, 
+                        "class": "point"
+                    }, 
+                    "outputsFolded": true, 
+                    "dependencies": [], 
+                    "params": {
+                        "INPUT_RASTER": {
+                            "values": {
+                                "alg": "OTBRESCALEIMAGE_1", 
+                                "output": "-out"
+                            }, 
+                            "class": "processing.modeler.ModelerAlgorithm.ValueFromOutput"
+                        }, 
+                        "COLUMN_PREFIX": "PCpre_", 
+                        "RASTER_BAND": 1.0, 
+                        "GLOBAL_EXTENT": false, 
+                        "INPUT_VECTOR": {
+                            "values": {
+                                "alg": "QGISEXTRACTBYATTRIBUTE_3", 
+                                "output": "OUTPUT"
+                            }, 
+                            "class": "processing.modeler.ModelerAlgorithm.ValueFromOutput"
+                        }
+                    }, 
+                    "active": true, 
+                    "consoleName": "qgis:zonalstatistics", 
+                    "description": "Compute pre-conflict PC stats"
+                }, 
+                "class": "processing.modeler.ModelerAlgorithm.Algorithm"
+            }, 
+            "QGISZONALSTATISTICS_2": {
+                "values": {
+                    "name": "QGISZONALSTATISTICS_2", 
+                    "paramsFolded": true, 
+                    "outputs": {}, 
+                    "pos": {
+                        "values": {
+                            "y": 402.6454047160979, 
+                            "x": 948.9726499949977
+                        }, 
+                        "class": "point"
+                    }, 
+                    "outputsFolded": true, 
+                    "dependencies": [], 
+                    "params": {
+                        "INPUT_RASTER": {
+                            "values": {
+                                "alg": "OTBEDGEEXTRACTIONTOUZI_2", 
+                                "output": "-out"
+                            }, 
+                            "class": "processing.modeler.ModelerAlgorithm.ValueFromOutput"
+                        }, 
+                        "RASTER_BAND": 1.0, 
+                        "COLUMN_PREFIX": "post_", 
+                        "GLOBAL_EXTENT": false, 
+                        "INPUT_VECTOR": {
+                            "values": {
+                                "alg": "QGISZONALSTATISTICS_1", 
+                                "output": "OUTPUT_LAYER"
+                            }, 
+                            "class": "processing.modeler.ModelerAlgorithm.ValueFromOutput"
+                        }
+                    }, 
+                    "active": true, 
+                    "consoleName": "qgis:zonalstatistics", 
+                    "description": "Compute object features (post-conflict)"
+                }, 
+                "class": "processing.modeler.ModelerAlgorithm.Algorithm"
+            }, 
+            "QGISZONALSTATISTICS_1": {
+                "values": {
+                    "name": "QGISZONALSTATISTICS_1", 
+                    "paramsFolded": true, 
+                    "outputs": {}, 
+                    "pos": {
+                        "values": {
+                            "y": 334.71569301546003, 
+                            "x": 948.210560240657
+                        }, 
+                        "class": "point"
+                    }, 
+                    "outputsFolded": true, 
+                    "dependencies": [], 
+                    "params": {
+                        "INPUT_RASTER": {
+                            "values": {
+                                "alg": "OTBEDGEEXTRACTIONTOUZI_1", 
+                                "output": "-out"
+                            }, 
+                            "class": "processing.modeler.ModelerAlgorithm.ValueFromOutput"
+                        }, 
+                        "RASTER_BAND": 1.0, 
+                        "COLUMN_PREFIX": "pre_", 
+                        "GLOBAL_EXTENT": false, 
+                        "INPUT_VECTOR": {
+                            "values": {
+                                "alg": "OTBSEGMENTATIONWATERSHED_1", 
+                                "output": "-mode.vector.out"
+                            }, 
+                            "class": "processing.modeler.ModelerAlgorithm.ValueFromOutput"
+                        }
+                    }, 
+                    "active": true, 
+                    "consoleName": "qgis:zonalstatistics", 
+                    "description": "Compute object features (pre-conflict)"
+                }, 
+                "class": "processing.modeler.ModelerAlgorithm.Algorithm"
+            }, 
+            "OTBSEGMENTATIONWATERSHED_1": {
+                "values": {
+                    "name": "OTBSEGMENTATIONWATERSHED_1", 
+                    "paramsFolded": true, 
+                    "outputs": {}, 
+                    "pos": {
+                        "values": {
+                            "y": 314.8806587699678, 
+                            "x": 512.1342445758412
+                        }, 
+                        "class": "point"
+                    }, 
+                    "outputsFolded": true, 
+                    "dependencies": [], 
+                    "params": {
+                        "-filter.watershed.level": 0.25, 
+                        "-mode.vector.startlabel": 1.0, 
+                        "-mode.vector.simplify": 0.1, 
+                        "-mode.vector.outmode": 0, 
+                        "-mode": 0, 
+                        "-in": {
+                            "values": {
+                                "alg": "OTBGRAYSCALEMORPHOLOGICALOPERATIONCLOSING_1", 
+                                "output": "-out"
+                            }, 
+                            "class": "processing.modeler.ModelerAlgorithm.ValueFromOutput"
+                        }, 
+                        "-mode.vector.layername": "layer", 
+                        "-mode.vector.ogroptions": null, 
+                        "-filter.watershed.threshold": 0.025, 
+                        "-mode.vector.inmask": null, 
+                        "-mode.vector.fieldname": "DN", 
+                        "-mode.vector.neighbor": true, 
+                        "-mode.vector.minsize": 1.0, 
+                        "-mode.vector.stitch": true, 
+                        "-filter": 0, 
+                        "-mode.vector.tilesize": 1024.0
+                    }, 
+                    "active": true, 
+                    "consoleName": "otb:segmentationwatershed", 
+                    "description": "Segmentation (watershed)"
+                }, 
+                "class": "processing.modeler.ModelerAlgorithm.Algorithm"
+            }, 
+            "MODELERDETECT_SETTLEMENTS_ON_EDGELAYER_1": {
+                "values": {
+                    "name": "MODELERDETECT_SETTLEMENTS_ON_EDGELAYER_1", 
+                    "paramsFolded": true, 
+                    "outputs": {
+                        "OUTPUT_LAYER_ALGQGISREFACTORFIELDS_1": {
+                            "values": {
+                                "description": "Settlements", 
+                                "pos": {
+                                    "values": {
+                                        "y": 1522.8037004381692, 
+                                        "x": 519.3865399284164
+                                    }, 
+                                    "class": "point"
+                                }
+                            }, 
+                            "class": "processing.modeler.ModelerAlgorithm.ModelerOutput"
+                        }
+                    }, 
+                    "pos": {
+                        "values": {
+                            "y": 425.09801293816906, 
+                            "x": 512.2485649284163
+                        }, 
+                        "class": "point"
+                    }, 
+                    "outputsFolded": true, 
+                    "dependencies": [], 
+                    "params": {
+                        "preconflictimage": {
+                            "values": {
+                                "alg": "OTBEDGEEXTRACTIONTOUZI_1", 
+                                "output": "-out"
+                            }, 
+                            "class": "processing.modeler.ModelerAlgorithm.ValueFromOutput"
+                        }, 
+                        "edgethresholdsettlements": {
+                            "values": {
+                                "name": "STRING_SETTLEMENTTHRESHOLD"
+                            }, 
+                            "class": "processing.modeler.ModelerAlgorithm.ValueFromInput"
+                        }, 
+                        "STRING_SIZETHRESHOLDSETTLEMENT": {
+                            "values": {
+                                "name": "settlementsize"
+                            }, 
+                            "class": "processing.modeler.ModelerAlgorithm.ValueFromInput"
+                        }
+                    }, 
+                    "active": true, 
+                    "consoleName": "modeler:detect_settlements_on_edgelayer", 
+                    "description": "Detect settlements"
+                }, 
+                "class": "processing.modeler.ModelerAlgorithm.Algorithm"
+            }, 
+            "QGISADDFIELDTOATTRIBUTESTABLE_1": {
+                "values": {
+                    "name": "QGISADDFIELDTOATTRIBUTESTABLE_1", 
+                    "paramsFolded": true, 
+                    "outputs": {}, 
+                    "pos": {
+                        "values": {
+                            "y": 606.930474293722, 
+                            "x": 741.1141545558216
+                        }, 
+                        "class": "point"
+                    }, 
+                    "outputsFolded": true, 
+                    "dependencies": [], 
+                    "params": {
+                        "FIELD_TYPE": 0, 
+                        "FIELD_NAME": "Set_ID", 
+                        "INPUT_LAYER": {
+                            "values": {
+                                "alg": "SAGAPOLYGONSHAPEINDICES_1", 
+                                "output": "INDEX"
+                            }, 
+                            "class": "processing.modeler.ModelerAlgorithm.ValueFromOutput"
+                        }, 
+                        "FIELD_PRECISION": 0.0, 
+                        "FIELD_LENGTH": 10.0
+                    }, 
+                    "active": true, 
+                    "consoleName": "qgis:addfieldtoattributestable", 
+                    "description": "Add field to attributes table"
+                }, 
+                "class": "processing.modeler.ModelerAlgorithm.Algorithm"
+            }, 
+            "QGISEXTRACTBYATTRIBUTE_4": {
+                "values": {
+                    "name": "QGISEXTRACTBYATTRIBUTE_4", 
+                    "paramsFolded": true, 
+                    "outputs": {
+                        "OUTPUT": {
+                            "values": {
+                                "description": "Result_threshold", 
+                                "pos": {
+                                    "values": {
+                                        "y": 1522.9011934076111, 
+                                        "x": 730.8716746137442
+                                    }, 
+                                    "class": "point"
+                                }
+                            }, 
+                            "class": "processing.modeler.ModelerAlgorithm.ModelerOutput"
+                        }
+                    }, 
+                    "pos": {
+                        "values": {
+                            "y": 1444.0592253061768, 
+                            "x": 734.6003225843788
+                        }, 
+                        "class": "point"
+                    }, 
+                    "outputsFolded": true, 
+                    "dependencies": [], 
+                    "params": {
+                        "OPERATOR": 2, 
+                        "INPUT": {
+                            "values": {
+                                "alg": "QGISPOLYGONCENTROIDS_2", 
+                                "output": "OUTPUT_LAYER"
+                            }, 
+                            "class": "processing.modeler.ModelerAlgorithm.ValueFromOutput"
+                        }, 
+                        "VALUE": "0", 
+                        "FIELD": "Set_ID"
+                    }, 
+                    "active": true, 
+                    "consoleName": "qgis:extractbyattribute", 
+                    "description": "Extract objects within settlements"
+                }, 
+                "class": "processing.modeler.ModelerAlgorithm.Algorithm"
+            }, 
+            "QGISREFACTORFIELDS_1": {
+                "values": {
+                    "name": "QGISREFACTORFIELDS_1", 
+                    "paramsFolded": true, 
+                    "outputs": {}, 
+                    "pos": {
+                        "values": {
+                            "y": 471.1296313982658, 
+                            "x": 949.0654425496382
+                        }, 
+                        "class": "point"
+                    }, 
+                    "outputsFolded": true, 
+                    "dependencies": [], 
+                    "params": {
+                        "INPUT_LAYER": {
+                            "values": {
+                                "alg": "QGISZONALSTATISTICS_2", 
+                                "output": "OUTPUT_LAYER"
+                            }, 
+                            "class": "processing.modeler.ModelerAlgorithm.ValueFromOutput"
+                        }, 
+                        "FIELDS_MAPPING": "[{'type': 6, 'length': 21, 'expression': u'\"pre_mean\" - \"post_mean\"', 'name': u'diff_mean', 'precision': 6}]"
+                    }, 
+                    "active": true, 
+                    "consoleName": "qgis:refactorfields", 
+                    "description": "Compute diff of mean edge density"
+                }, 
+                "class": "processing.modeler.ModelerAlgorithm.Algorithm"
+            }, 
+            "QGISREFACTORFIELDS_3": {
+                "values": {
+                    "name": "QGISREFACTORFIELDS_3", 
+                    "paramsFolded": true, 
+                    "outputs": {}, 
+                    "pos": {
+                        "values": {
+                            "y": 1151.6745780823178, 
+                            "x": 949.2076107724905
+                        }, 
+                        "class": "point"
+                    }, 
+                    "outputsFolded": true, 
+                    "dependencies": [], 
+                    "params": {
+                        "INPUT_LAYER": {
+                            "values": {
+                                "alg": "QGISZONALSTATISTICS_4", 
+                                "output": "OUTPUT_LAYER"
+                            }, 
+                            "class": "processing.modeler.ModelerAlgorithm.ValueFromOutput"
+                        }, 
+                        "FIELDS_MAPPING": "[{'type': 6, 'length': 18, 'expression': u'\"diff_mean\"', 'name': u'diff_mean', 'precision': 10}, {'type': 4, 'length': 16, 'expression': u' \"Set_ID\"', 'name': u'Set_ID', 'precision': 1}, {'type': 6, 'length': 23, 'expression': u'\"dif_to_ref\"', 'name': u'dif_to_ref', 'precision': 15}, {'type': 6, 'length': 23, 'expression': u'\"local_ref\"', 'name': u'local_ref', 'precision': 15}, {'type': 2, 'length': 1, 'expression': u'\"class\"', 'name': u'dif_class', 'precision': 1}, {'type': 6, 'length': 21, 'expression': u'\"PCpre_mean\"/\"clpre_mean\"', 'name': u'cl_ratio', 'precision': 6}]"
+                    }, 
+                    "active": true, 
+                    "consoleName": "qgis:refactorfields", 
+                    "description": "Refactor fields"
+                }, 
+                "class": "processing.modeler.ModelerAlgorithm.Algorithm"
+            }, 
+            "OTBRESCALEIMAGE_2": {
+                "values": {
+                    "name": "OTBRESCALEIMAGE_2", 
+                    "paramsFolded": true, 
+                    "outputs": {}, 
+                    "pos": {
+                        "values": {
+                            "y": 177.96256578702457, 
+                            "x": 953.8300121592492
+                        }, 
+                        "class": "point"
+                    }, 
+                    "outputsFolded": true, 
+                    "dependencies": [], 
+                    "params": {
+                        "-outmax": 255.0, 
+                        "-ram": 128.0, 
+                        "-outmin": 0.0, 
+                        "-in": {
+                            "values": {
+                                "alg": "OTBDIMENSIONALITYREDUCTIONPCA_2", 
+                                "output": "-out"
+                            }, 
+                            "class": "processing.modeler.ModelerAlgorithm.ValueFromOutput"
+                        }
+                    }, 
+                    "active": true, 
+                    "consoleName": "otb:rescaleimage", 
+                    "description": "Rescale post-conflict PC"
+                }, 
+                "class": "processing.modeler.ModelerAlgorithm.Algorithm"
+            }, 
+            "OTBRESCALEIMAGE_1": {
+                "values": {
+                    "name": "OTBRESCALEIMAGE_1", 
+                    "paramsFolded": true, 
+                    "outputs": {}, 
+                    "pos": {
+                        "values": {
+                            "y": 177.48657110870212, 
+                            "x": 726.4611328078902
+                        }, 
+                        "class": "point"
+                    }, 
+                    "outputsFolded": true, 
+                    "dependencies": [], 
+                    "params": {
+                        "-outmax": 255.0, 
+                        "-ram": 128.0, 
+                        "-outmin": 0.0, 
+                        "-in": {
+                            "values": {
+                                "alg": "OTBDIMENSIONALITYREDUCTIONPCA_1", 
+                                "output": "-out"
+                            }, 
+                            "class": "processing.modeler.ModelerAlgorithm.ValueFromOutput"
+                        }
+                    }, 
+                    "active": true, 
+                    "consoleName": "otb:rescaleimage", 
+                    "description": "Rescale pre-conflict PC"
+                }, 
+                "class": "processing.modeler.ModelerAlgorithm.Algorithm"
+            }, 
+            "QGISEXTRACTBYATTRIBUTE_1": {
+                "values": {
+                    "name": "QGISEXTRACTBYATTRIBUTE_1", 
+                    "paramsFolded": true, 
+                    "outputs": {}, 
+                    "pos": {
+                        "values": {
+                            "y": 811.4091967492835, 
+                            "x": 948.4589263802541
+                        }, 
+                        "class": "point"
+                    }, 
+                    "outputsFolded": true, 
+                    "dependencies": [], 
+                    "params": {
+                        "OPERATOR": 3, 
+                        "INPUT": {
+                            "values": {
+                                "alg": "SCRIPTKMEANSCLUSTERINGV23_1", 
+                                "output": "outputLayer"
+                            }, 
+                            "class": "processing.modeler.ModelerAlgorithm.ValueFromOutput"
+                        }, 
+                        "VALUE": "10", 
+                        "FIELD": "Area"
+                    }, 
+                    "active": true, 
+                    "consoleName": "qgis:extractbyattribute", 
+                    "description": "Extract by minimum size"
+                }, 
+                "class": "processing.modeler.ModelerAlgorithm.Algorithm"
+            }, 
+            "QGISEXTRACTBYATTRIBUTE_3": {
+                "values": {
+                    "name": "QGISEXTRACTBYATTRIBUTE_3", 
+                    "paramsFolded": true, 
+                    "outputs": {}, 
+                    "pos": {
+                        "values": {
+                            "y": 947.9482842289035, 
+                            "x": 948.5788445789152
+                        }, 
+                        "class": "point"
+                    }, 
+                    "outputsFolded": true, 
+                    "dependencies": [], 
+                    "params": {
+                        "OPERATOR": 5, 
+                        "INPUT": {
+                            "values": {
+                                "alg": "QGISEXTRACTBYATTRIBUTE_2", 
+                                "output": "OUTPUT"
+                            }, 
+                            "class": "processing.modeler.ModelerAlgorithm.ValueFromOutput"
+                        }, 
+                        "VALUE": "1.55", 
+                        "FIELD": "Shape Inde"
+                    }, 
+                    "active": true, 
+                    "consoleName": "qgis:extractbyattribute", 
+                    "description": "Extract by Shape "
+                }, 
+                "class": "processing.modeler.ModelerAlgorithm.Algorithm"
+            }, 
+            "QGISEXTRACTBYATTRIBUTE_2": {
+                "values": {
+                    "name": "QGISEXTRACTBYATTRIBUTE_2", 
+                    "paramsFolded": true, 
+                    "outputs": {}, 
+                    "pos": {
+                        "values": {
+                            "y": 880.0025131686673, 
+                            "x": 948.3682204717718
+                        }, 
+                        "class": "point"
+                    }, 
+                    "outputsFolded": true, 
+                    "dependencies": [], 
+                    "params": {
+                        "OPERATOR": 5, 
+                        "INPUT": {
+                            "values": {
+                                "alg": "QGISEXTRACTBYATTRIBUTE_1", 
+                                "output": "OUTPUT"
+                            }, 
+                            "class": "processing.modeler.ModelerAlgorithm.ValueFromOutput"
+                        }, 
+                        "VALUE": "60", 
+                        "FIELD": "Area"
+                    }, 
+                    "active": true, 
+                    "consoleName": "qgis:extractbyattribute", 
+                    "description": "Extract by maximum size"
+                }, 
+                "class": "processing.modeler.ModelerAlgorithm.Algorithm"
+            }, 
+            "QGISEXTRACTBYATTRIBUTE_5": {
+                "values": {
+                    "name": "QGISEXTRACTBYATTRIBUTE_5", 
+                    "paramsFolded": true, 
+                    "outputs": {}, 
+                    "pos": {
+                        "values": {
+                            "y": 1306.5752858116025, 
+                            "x": 733.9248560053859
+                        }, 
+                        "class": "point"
+                    }, 
+                    "outputsFolded": true, 
+                    "dependencies": [], 
+                    "params": {
+                        "OPERATOR": 3, 
+                        "INPUT": {
+                            "values": {
+                                "alg": "QGISEXTRACTBYATTRIBUTE_6", 
+                                "output": "OUTPUT"
+                            }, 
+                            "class": "processing.modeler.ModelerAlgorithm.ValueFromOutput"
+                        }, 
+                        "VALUE": {
+                            "values": {
+                                "name": "difftoref"
+                            }, 
+                            "class": "processing.modeler.ModelerAlgorithm.ValueFromInput"
+                        }, 
+                        "FIELD": "dif_to_ref"
+                    }, 
+                    "active": true, 
+                    "consoleName": "qgis:extractbyattribute", 
+                    "description": "Extract by Threshold"
+                }, 
+                "class": "processing.modeler.ModelerAlgorithm.Algorithm"
+            }, 
+            "SCRIPTDIFFTOLOCALREFV13_2": {
+                "values": {
+                    "name": "SCRIPTDIFFTOLOCALREFV13_2", 
+                    "paramsFolded": true, 
+                    "outputs": {}, 
+                    "pos": {
+                        "values": {
+                            "y": 679.0608571308208, 
+                            "x": 947.8579285513674
+                        }, 
+                        "class": "point"
+                    }, 
+                    "outputsFolded": true, 
+                    "dependencies": [], 
+                    "params": {
+                        "field_with_area": "Area", 
+                        "number_of_intervals": 10.0, 
+                        "input_layer": {
+                            "values": {
+                                "alg": "SAGAIDENTITY_1", 
+                                "output": "RESULT"
+                            }, 
+                            "class": "processing.modeler.ModelerAlgorithm.ValueFromOutput"
+                        }, 
+                        "backup_layer": {
+                            "values": {
+                                "alg": "QGISADDFIELDTOATTRIBUTESTABLE_1", 
+                                "output": "OUTPUT_LAYER"
+                            }, 
+                            "class": "processing.modeler.ModelerAlgorithm.ValueFromOutput"
+                        }, 
+                        "field_with_superID": "set_ID", 
+                        "field_to_analyse": "diff_mean"
+                    }, 
+                    "active": true, 
+                    "consoleName": "script:difftolocalrefv13", 
+                    "description": "diff to local ref v1.3"
+                }, 
+                "class": "processing.modeler.ModelerAlgorithm.Algorithm"
+            }, 
+            "QGISEXTRACTBYATTRIBUTE_6": {
+                "values": {
+                    "name": "QGISEXTRACTBYATTRIBUTE_6", 
+                    "paramsFolded": true, 
+                    "outputs": {
+                        "OUTPUT": {
+                            "values": {
+                                "description": "Output_unclassified", 
+                                "pos": {
+                                    "values": {
+                                        "y": 1522.8699454525254, 
+                                        "x": 941.0426151263989
+                                    }, 
+                                    "class": "point"
+                                }
+                            }, 
+                            "class": "processing.modeler.ModelerAlgorithm.ModelerOutput"
+                        }
+                    }, 
+                    "pos": {
+                        "values": {
+                            "y": 1220.2696650563028, 
+                            "x": 948.9742965139167
+                        }, 
+                        "class": "point"
+                    }, 
+                    "outputsFolded": true, 
+                    "dependencies": [], 
+                    "params": {
+                        "OPERATOR": 5, 
+                        "INPUT": {
+                            "values": {
+                                "alg": "QGISREFACTORFIELDS_3", 
+                                "output": "OUTPUT_LAYER"
+                            }, 
+                            "class": "processing.modeler.ModelerAlgorithm.ValueFromOutput"
+                        }, 
+                        "VALUE": "0.55", 
+                        "FIELD": "cl_ratio"
+                    }, 
+                    "active": true, 
+                    "consoleName": "qgis:extractbyattribute", 
+                    "description": "Extract by ratio PC/closing"
+                }, 
+                "class": "processing.modeler.ModelerAlgorithm.Algorithm"
+            }
+        }
+    }, 
+    "class": "processing.modeler.ModelerAlgorithm.ModelerAlgorithm"
+}

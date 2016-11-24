@@ -1,0 +1,486 @@
+{
+    "values": {
+        "inputs": {
+            "preconflictimage": {
+                "values": {
+                    "pos": {
+                        "values": {
+                            "y": 168.78067306640622, 
+                            "x": 502.63433360625004
+                        }, 
+                        "class": "point"
+                    }, 
+                    "param": {
+                        "values": {
+                            "isAdvanced": false, 
+                            "name": "preconflictimage", 
+                            "showSublayersDialog": true, 
+                            "default": null, 
+                            "value": null, 
+                            "exported": null, 
+                            "hidden": false, 
+                            "optional": false, 
+                            "description": "pre-conflict edge layer"
+                        }, 
+                        "class": "processing.core.parameters.ParameterRaster"
+                    }
+                }, 
+                "class": "processing.modeler.ModelerAlgorithm.ModelerParameter"
+            }, 
+            "edgethresholdsettlements": {
+                "values": {
+                    "pos": {
+                        "values": {
+                            "y": 455.95657141640635, 
+                            "x": 236.39015508515635
+                        }, 
+                        "class": "point"
+                    }, 
+                    "param": {
+                        "values": {
+                            "isAdvanced": false, 
+                            "name": "edgethresholdsettlements", 
+                            "default": "0.3", 
+                            "value": "0.3", 
+                            "multiline": false, 
+                            "hidden": false, 
+                            "optional": false, 
+                            "description": "edge_threshold_settlements"
+                        }, 
+                        "class": "processing.core.parameters.ParameterString"
+                    }
+                }, 
+                "class": "processing.modeler.ModelerAlgorithm.ModelerParameter"
+            }, 
+            "STRING_SIZETHRESHOLDSETTLEMENT": {
+                "values": {
+                    "pos": {
+                        "values": {
+                            "y": 819.4199788855467, 
+                            "x": 851.3408116052216
+                        }, 
+                        "class": "point"
+                    }, 
+                    "param": {
+                        "values": {
+                            "isAdvanced": false, 
+                            "name": "STRING_SIZETHRESHOLDSETTLEMENT", 
+                            "default": "0", 
+                            "value": null, 
+                            "multiline": false, 
+                            "hidden": false, 
+                            "optional": false, 
+                            "description": "size_threshold_settlement"
+                        }, 
+                        "class": "processing.core.parameters.ParameterString"
+                    }
+                }, 
+                "class": "processing.modeler.ModelerAlgorithm.ModelerParameter"
+            }
+        }, 
+        "helpContent": {}, 
+        "group": "examples", 
+        "name": "detect_settlements_on edgelayer", 
+        "algs": {
+            "QGISZONALSTATISTICS_1": {
+                "values": {
+                    "name": "QGISZONALSTATISTICS_1", 
+                    "paramsFolded": true, 
+                    "outputs": {}, 
+                    "pos": {
+                        "values": {
+                            "y": 404.86605845312516, 
+                            "x": 493.5983970414061
+                        }, 
+                        "class": "point"
+                    }, 
+                    "outputsFolded": true, 
+                    "dependencies": [], 
+                    "params": {
+                        "INPUT_RASTER": {
+                            "values": {
+                                "name": "preconflictimage"
+                            }, 
+                            "class": "processing.modeler.ModelerAlgorithm.ValueFromInput"
+                        }, 
+                        "COLUMN_PREFIX": "edge_", 
+                        "RASTER_BAND": 1.0, 
+                        "GLOBAL_EXTENT": false, 
+                        "INPUT_VECTOR": {
+                            "values": {
+                                "alg": "QGISCREATEGRID_1", 
+                                "output": "OUTPUT"
+                            }, 
+                            "class": "processing.modeler.ModelerAlgorithm.ValueFromOutput"
+                        }
+                    }, 
+                    "active": true, 
+                    "consoleName": "qgis:zonalstatistics", 
+                    "description": "Zonal Statistics"
+                }, 
+                "class": "processing.modeler.ModelerAlgorithm.Algorithm"
+            }, 
+            "QGISADDAUTOINCREMENTALFIELD_1": {
+                "values": {
+                    "name": "QGISADDAUTOINCREMENTALFIELD_1", 
+                    "paramsFolded": true, 
+                    "outputs": {}, 
+                    "pos": {
+                        "values": {
+                            "y": 947.6682714093749, 
+                            "x": 506.01632097343753
+                        }, 
+                        "class": "point"
+                    }, 
+                    "outputsFolded": true, 
+                    "dependencies": [], 
+                    "params": {
+                        "INPUT": {
+                            "values": {
+                                "alg": "QGISEXTRACTBYATTRIBUTE_3", 
+                                "output": "OUTPUT"
+                            }, 
+                            "class": "processing.modeler.ModelerAlgorithm.ValueFromOutput"
+                        }
+                    }, 
+                    "active": true, 
+                    "consoleName": "qgis:addautoincrementalfield", 
+                    "description": "Add autoincremental field"
+                }, 
+                "class": "processing.modeler.ModelerAlgorithm.Algorithm"
+            }, 
+            "QGISMULTIPARTTOSINGLEPARTS_2": {
+                "values": {
+                    "name": "QGISMULTIPARTTOSINGLEPARTS_2", 
+                    "paramsFolded": true, 
+                    "outputs": {}, 
+                    "pos": {
+                        "values": {
+                            "y": 656.2237797976559, 
+                            "x": 502.6332360296871
+                        }, 
+                        "class": "point"
+                    }, 
+                    "outputsFolded": true, 
+                    "dependencies": [], 
+                    "params": {
+                        "INPUT": {
+                            "values": {
+                                "alg": "QGISFIXEDDISTANCEBUFFER_1", 
+                                "output": "OUTPUT"
+                            }, 
+                            "class": "processing.modeler.ModelerAlgorithm.ValueFromOutput"
+                        }
+                    }, 
+                    "active": true, 
+                    "consoleName": "qgis:multiparttosingleparts", 
+                    "description": "Multipart to singleparts"
+                }, 
+                "class": "processing.modeler.ModelerAlgorithm.Algorithm"
+            }, 
+            "QGISREFACTORFIELDS_1": {
+                "values": {
+                    "name": "QGISREFACTORFIELDS_1", 
+                    "paramsFolded": true, 
+                    "outputs": {
+                        "OUTPUT_LAYER": {
+                            "values": {
+                                "description": "settlements", 
+                                "pos": {
+                                    "values": {
+                                        "y": 1074.4215259208331, 
+                                        "x": 707.161230940588
+                                    }, 
+                                    "class": "point"
+                                }
+                            }, 
+                            "class": "processing.modeler.ModelerAlgorithm.ModelerOutput"
+                        }
+                    }, 
+                    "outputsFolded": true, 
+                    "pos": {
+                        "values": {
+                            "y": 1029.4215259208331, 
+                            "x": 507.1612309405879
+                        }, 
+                        "class": "point"
+                    }, 
+                    "dependencies": [], 
+                    "params": {
+                        "INPUT_LAYER": {
+                            "values": {
+                                "alg": "QGISADDAUTOINCREMENTALFIELD_1", 
+                                "output": "OUTPUT"
+                            }, 
+                            "class": "processing.modeler.ModelerAlgorithm.ValueFromOutput"
+                        }, 
+                        "FIELDS_MAPPING": "[{'expression': u'\"AUTO\" +1', 'length': 1000000, 'type': 2, 'name': u'Set_ID', 'precision': 0}, {'expression': u'\"Area\"', 'length': 15, 'type': 6, 'name': u'Area', 'precision': 5}]"
+                    }, 
+                    "active": true, 
+                    "consoleName": "qgis:refactorfields", 
+                    "description": "Refactor fields"
+                }, 
+                "class": "processing.modeler.ModelerAlgorithm.Algorithm"
+            }, 
+            "QGISFILLHOLES_1": {
+                "values": {
+                    "name": "QGISFILLHOLES_1", 
+                    "paramsFolded": true, 
+                    "outputs": {}, 
+                    "pos": {
+                        "values": {
+                            "y": 854.7764687070311, 
+                            "x": 505.81999586328106
+                        }, 
+                        "class": "point"
+                    }, 
+                    "outputsFolded": true, 
+                    "dependencies": [], 
+                    "params": {
+                        "Max_area": 100000.0, 
+                        "Polygons": {
+                            "values": {
+                                "alg": "QGISEXTRACTBYATTRIBUTE_2", 
+                                "output": "OUTPUT"
+                            }, 
+                            "class": "processing.modeler.ModelerAlgorithm.ValueFromOutput"
+                        }
+                    }, 
+                    "active": true, 
+                    "consoleName": "qgis:fillholes", 
+                    "description": "Fill holes"
+                }, 
+                "class": "processing.modeler.ModelerAlgorithm.Algorithm"
+            }, 
+            "QGISFIXEDDISTANCEBUFFER_1": {
+                "values": {
+                    "name": "QGISFIXEDDISTANCEBUFFER_1", 
+                    "paramsFolded": true, 
+                    "outputs": {}, 
+                    "pos": {
+                        "values": {
+                            "y": 576.4451856812497, 
+                            "x": 496.93880527656233
+                        }, 
+                        "class": "point"
+                    }, 
+                    "outputsFolded": true, 
+                    "dependencies": [], 
+                    "params": {
+                        "INPUT": {
+                            "values": {
+                                "alg": "QGISEXTRACTBYATTRIBUTE_1", 
+                                "output": "OUTPUT"
+                            }, 
+                            "class": "processing.modeler.ModelerAlgorithm.ValueFromOutput"
+                        }, 
+                        "SEGMENTS": 5.0, 
+                        "DISSOLVE": true, 
+                        "DISTANCE": 50.0
+                    }, 
+                    "active": true, 
+                    "consoleName": "qgis:fixeddistancebuffer", 
+                    "description": "Fixed distance buffer"
+                }, 
+                "class": "processing.modeler.ModelerAlgorithm.Algorithm"
+            }, 
+            "QGISEXTRACTBYATTRIBUTE_1": {
+                "values": {
+                    "name": "QGISEXTRACTBYATTRIBUTE_1", 
+                    "paramsFolded": true, 
+                    "outputs": {}, 
+                    "pos": {
+                        "values": {
+                            "y": 500.15277557109357, 
+                            "x": 496.1197700921874
+                        }, 
+                        "class": "point"
+                    }, 
+                    "outputsFolded": true, 
+                    "dependencies": [], 
+                    "params": {
+                        "OPERATOR": 3, 
+                        "INPUT": {
+                            "values": {
+                                "alg": "QGISZONALSTATISTICS_1", 
+                                "output": "OUTPUT_LAYER"
+                            }, 
+                            "class": "processing.modeler.ModelerAlgorithm.ValueFromOutput"
+                        }, 
+                        "VALUE": {
+                            "values": {
+                                "name": "edgethresholdsettlements"
+                            }, 
+                            "class": "processing.modeler.ModelerAlgorithm.ValueFromInput"
+                        }, 
+                        "FIELD": "edge_std"
+                    }, 
+                    "active": true, 
+                    "consoleName": "qgis:extractbyattribute", 
+                    "description": "Extract by attribute"
+                }, 
+                "class": "processing.modeler.ModelerAlgorithm.Algorithm"
+            }, 
+            "SAGAPOLYGONSHAPEINDICES_1": {
+                "values": {
+                    "name": "SAGAPOLYGONSHAPEINDICES_1", 
+                    "paramsFolded": true, 
+                    "outputs": {}, 
+                    "pos": {
+                        "values": {
+                            "y": 725.480637492969, 
+                            "x": 505.0173155046874
+                        }, 
+                        "class": "point"
+                    }, 
+                    "outputsFolded": true, 
+                    "dependencies": [], 
+                    "params": {
+                        "SHAPES": {
+                            "values": {
+                                "alg": "QGISMULTIPARTTOSINGLEPARTS_2", 
+                                "output": "OUTPUT"
+                            }, 
+                            "class": "processing.modeler.ModelerAlgorithm.ValueFromOutput"
+                        }
+                    }, 
+                    "active": true, 
+                    "consoleName": "saga:polygonshapeindices", 
+                    "description": "Polygon shape indices"
+                }, 
+                "class": "processing.modeler.ModelerAlgorithm.Algorithm"
+            }, 
+            "QGISEXTRACTBYATTRIBUTE_3": {
+                "values": {
+                    "name": "QGISEXTRACTBYATTRIBUTE_3", 
+                    "paramsFolded": true, 
+                    "outputs": {}, 
+                    "pos": {
+                        "values": {
+                            "y": 900.8336801090169, 
+                            "x": 503.45807234246126
+                        }, 
+                        "class": "point"
+                    }, 
+                    "outputsFolded": true, 
+                    "dependencies": [], 
+                    "params": {
+                        "OPERATOR": 2, 
+                        "INPUT": {
+                            "values": {
+                                "alg": "QGISFILLHOLES_1", 
+                                "output": "Results"
+                            }, 
+                            "class": "processing.modeler.ModelerAlgorithm.ValueFromOutput"
+                        }, 
+                        "VALUE": {
+                            "values": {
+                                "name": "STRING_SIZETHRESHOLDSETTLEMENT"
+                            }, 
+                            "class": "processing.modeler.ModelerAlgorithm.ValueFromInput"
+                        }, 
+                        "FIELD": "Area"
+                    }, 
+                    "active": true, 
+                    "consoleName": "qgis:extractbyattribute", 
+                    "description": "Extract by attribute"
+                }, 
+                "class": "processing.modeler.ModelerAlgorithm.Algorithm"
+            }, 
+            "QGISEXTRACTBYATTRIBUTE_2": {
+                "values": {
+                    "name": "QGISEXTRACTBYATTRIBUTE_2", 
+                    "paramsFolded": true, 
+                    "outputs": {}, 
+                    "pos": {
+                        "values": {
+                            "y": 795.7217578856769, 
+                            "x": 508.0628235124998
+                        }, 
+                        "class": "point"
+                    }, 
+                    "outputsFolded": true, 
+                    "dependencies": [], 
+                    "params": {
+                        "OPERATOR": 3, 
+                        "INPUT": {
+                            "values": {
+                                "alg": "SAGAPOLYGONSHAPEINDICES_1", 
+                                "output": "INDEX"
+                            }, 
+                            "class": "processing.modeler.ModelerAlgorithm.ValueFromOutput"
+                        }, 
+                        "VALUE": "13351", 
+                        "FIELD": "Area"
+                    }, 
+                    "active": true, 
+                    "consoleName": "qgis:extractbyattribute", 
+                    "description": "Extract by attribute"
+                }, 
+                "class": "processing.modeler.ModelerAlgorithm.Algorithm"
+            }, 
+            "QGISCREATEGRID_1": {
+                "values": {
+                    "name": "QGISCREATEGRID_1", 
+                    "paramsFolded": true, 
+                    "outputs": {}, 
+                    "pos": {
+                        "values": {
+                            "y": 323.781565728125, 
+                            "x": 236.38245633984386
+                        }, 
+                        "class": "point"
+                    }, 
+                    "outputsFolded": true, 
+                    "dependencies": [], 
+                    "params": {
+                        "CRS": "EPSG:32635", 
+                        "HSPACING": 25.0, 
+                        "TYPE": 1, 
+                        "VSPACING": 25.0, 
+                        "EXTENT": {
+                            "values": {
+                                "alg": "MODELERTOOLSRASTERLAYERBOUNDS_1", 
+                                "output": "EXTENT"
+                            }, 
+                            "class": "processing.modeler.ModelerAlgorithm.ValueFromOutput"
+                        }
+                    }, 
+                    "active": true, 
+                    "consoleName": "qgis:creategrid", 
+                    "description": "Create grid"
+                }, 
+                "class": "processing.modeler.ModelerAlgorithm.Algorithm"
+            }, 
+            "MODELERTOOLSRASTERLAYERBOUNDS_1": {
+                "values": {
+                    "name": "MODELERTOOLSRASTERLAYERBOUNDS_1", 
+                    "paramsFolded": true, 
+                    "outputs": {}, 
+                    "pos": {
+                        "values": {
+                            "y": 228.04161999192667, 
+                            "x": 236.90413298749993
+                        }, 
+                        "class": "point"
+                    }, 
+                    "outputsFolded": true, 
+                    "dependencies": [], 
+                    "params": {
+                        "LAYER": {
+                            "values": {
+                                "name": "preconflictimage"
+                            }, 
+                            "class": "processing.modeler.ModelerAlgorithm.ValueFromInput"
+                        }
+                    }, 
+                    "active": true, 
+                    "consoleName": "modelertools:rasterlayerbounds", 
+                    "description": "Raster layer bounds"
+                }, 
+                "class": "processing.modeler.ModelerAlgorithm.Algorithm"
+            }
+        }
+    }, 
+    "class": "processing.modeler.ModelerAlgorithm.ModelerAlgorithm"
+}
