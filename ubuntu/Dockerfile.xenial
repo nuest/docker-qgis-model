@@ -76,7 +76,7 @@ ENV QGIS_WORKSPACE=/workspace
 ENV QGIS_MODELFILE=/workspace/models/*.model
 ENV QGIS_MODELSCRIPT=/workspace/model.py
 ENV QGIS_SCRIPTFILE=/workspace/scripts/*.py
-ENV QGIS_RESULT=/workspace/results
+ENV QGIS_RESULT=/results
 ENV QGIS_USER_MODELDIR=/root/.qgis2/processing/models
 ENV QGIS_USER_SCRIPTDIR=/root/.qgis2/processing/scripts
 ENV XVFB_LOGFILE=/qgis/xvfb.log
@@ -86,8 +86,9 @@ WORKDIR /qgis
 COPY model.sh model.sh
 RUN chmod 0755 model.sh
 
-# Expose a default volume for Kitematic UI
+# Expose default volumes for Kitematic UI
 VOLUME $QGIS_WORKSPACE
+VOLUME $QGIS_RESULT
 
 ENTRYPOINT ["/bin/bash", "/qgis/model.sh"]
 
