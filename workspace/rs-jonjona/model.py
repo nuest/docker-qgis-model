@@ -78,7 +78,7 @@ output_result_threshold = os.path.join(output_directory, "result_threshold.shp")
 print "### model.py ### Saving output to files to\n\t" + output_settlements + "\n\t" + output_result_unclassified + "\n\t" + output_result_threshold + "\n"
 
 settlement_threshold = os.getenv('settlement_threshold', 0.3)
-settlement_size = os.getenv('settlement_size', 0.3)
+settlement_size = os.getenv('settlement_size', 0)
 change_analysis_threshold = os.getenv('change_analysis_threshold', 0.3)
 print "### model.py ### Input paramters:\n\tsettlement detection sensitivity: " + str(settlement_threshold) + "\n\tminimum settlement size: " + str(settlement_size) + "\n\tchange sensitivity: " + str(change_analysis_threshold) + "\n"
 

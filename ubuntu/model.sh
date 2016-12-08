@@ -58,7 +58,11 @@ cat $QGIS_LOGFILE
 
 echo " "
 echo "### model.sh ### Workspace directory contents:"
-tree /workspace
+tree $QGIS_WORKSPACE
+
+echo " "
+echo "### model.sh ### Results directory contents:"
+tree $QGIS_RESULT
 
 echo " "
 echo "### model.sh ### Result files are available in the container as a subdirectory of " $QGIS_RESULT
