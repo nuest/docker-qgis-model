@@ -53,8 +53,8 @@ print QgsApplication.showSettings()
 print "### model.py ### QGIS model prepared, logging to file %s" % filename
 
 # Run model
-inputimage_pre = os.path.join(os.getcwd(), "data/jonjona_pre_conflict_proj.tif")
-inputimage_post = os.path.join(os.getcwd(), "data/jonjona_pos_conflict_proj.tif")
+inputimage_pre = os.path.join(os.getcwd(), "data/pre_conflict.tif")
+inputimage_post = os.path.join(os.getcwd(), "data/post_conflict.tif")
 output_directory = os.path.join(tempfile.gettempdir(), "qgis_model_performance", datetime.datetime.now().strftime("%Y%m%d-%H%M%S"))
 
 output_settlements = os.path.join(output_directory, "settlements.shp")

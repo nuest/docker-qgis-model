@@ -66,8 +66,8 @@ print QgsApplication.showSettings()
 print "### model.py ### QGIS model prepared, logging to file %s" % filename
 
 # Run model
-inputimage_pre = os.path.join(os.environ['QGIS_WORKSPACE'], "data/jonjona_pre_conflict_proj.tif")
-inputimage_post = os.path.join(os.environ['QGIS_WORKSPACE'], "data/jonjona_pos_conflict_proj.tif")
+inputimage_pre = os.path.join(os.environ['QGIS_WORKSPACE'], "data/pre_conflict.tif")
+inputimage_post = os.path.join(os.environ['QGIS_WORKSPACE'], "data/post_conflict.tif")
 
 output_directory = os.path.join(os.environ['QGIS_RESULT'], datetime.datetime.now().strftime("%Y%m%d-%H%M%S"))
 make_sure_path_exists(output_directory)
