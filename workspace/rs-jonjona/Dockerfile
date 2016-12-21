@@ -25,7 +25,7 @@ LABEL de.ifgi.qgis-model.options '[ \
       "comment": "minimum change in edge intensity for objects to be flagged as changed" }]'
 
 # Execute the following commands _in the directory of this file_ to build and execute a self-contained image:
-# BUILD COMMAND: docker build -t qgis-model-rs-jonjona .
+# BUILD COMMAND: docker build -t qgis-model-rs-jonjona --no-cache .
 # RUN COMMAND: docker run --name rs-jonjona -it qgis-model-rs-jonjona
 # Extract results: docker cp rs-jonjona:/workspace/results .
 # RUN with changed parameters:
