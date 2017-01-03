@@ -4,7 +4,7 @@
 
 ```bash
 docker run -it --name jonjona nuest/qgis-model:rs-jonjona
-docker cp jonjona:/workspace .
+docker cp jonjona:/results .
 ```
 
 ## Analysis parameters

@@ -27,6 +27,6 @@ LABEL de.ifgi.qgis-model.options '[ \
 # Execute the following commands _in the directory of this file_ to build and execute a self-contained image:
 # BUILD COMMAND: docker build -t qgis-model-rs-jonjona --no-cache .
 # RUN COMMAND: docker run --name rs-jonjona -it qgis-model-rs-jonjona
-# Extract results: docker cp rs-jonjona:/workspace/results .
+# Extract results: docker cp rs-jonjona:/results .
 # RUN with changed parameters:
 #   docker run --name rs-jonjona-params -e "change_analysis_threshold=0.2" qgis-model-rs-jonjona

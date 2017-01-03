@@ -45,7 +45,7 @@ import datetime
 from time import gmtime, strftime
 from timeit import default_timer as timer
 
-qgis_model_name = "modeler:example_analysis_linux_v3.1"
+qgis_model_name = "modeler:example_analysis_linux_v3.2"
 processing.alghelp(qgis_model_name)
 processing.algoptions(qgis_model_name)
 
