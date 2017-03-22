@@ -21,7 +21,7 @@ LABEL de.ifgi.qgis-model.options '[ \
       "comment": "the minimal size for a settlement candidate after grow and merge of seeds (unit: m²)" }, \
     { "id": "change_analysis_threshold", \
       "name": "change sensitivity", \
-      "value": "0.3", \
+      "value": "0.33", \
       "comment": "minimum change in edge intensity for objects to be flagged as changed" }]'
 
 # Execute the following commands _in the directory of this file_ to build and execute a self-contained image:
