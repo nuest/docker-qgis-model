@@ -814,7 +814,7 @@
                             }, 
                             "class": "processing.modeler.ModelerAlgorithm.ValueFromOutput"
                         }, 
-                        "FIELDS_MAPPING": "[{'type': 6, 'length': 18, 'expression': u'\"diff_mean\"', 'name': u'diff_mean', 'precision': 10}, {'type': 4, 'length': 16, 'expression': u' \"Set_ID\"', 'name': u'Set_ID', 'precision': 1}, {'type': 6, 'length': 23, 'expression': u'\"dif_to_ref\"', 'name': u'dif_to_ref', 'precision': 15}, {'type': 6, 'length': 23, 'expression': u'\"local_ref\"', 'name': u'local_ref', 'precision': 15}, {'type': 2, 'length': 1, 'expression': u'\"class\"', 'name': u'dif_class', 'precision': 1}, {'type': 6, 'length': 21, 'expression': u'\"PCpre_mean\"/\"clpre_mean\"', 'name': u'cl_ratio', 'precision': 6}]"
+                        "FIELDS_MAPPING": "[{'type': 6, 'length': 18, 'expression': u'\"diff_mean\"', 'name': u'diff_mean', 'precision': 10}, {'type': 4, 'length': 16, 'expression': u' \"Set_ID\"', 'name': u'Set_ID', 'precision': 1}, {'type': 6, 'length': 23, 'expression': u'\"dif_to_ref\"', 'name': u'dif_to_ref', 'precision': 15}, {'type': 6, 'length': 23, 'expression': u'\"local_ref\"', 'name': u'local_ref', 'precision': 15}, {'type': 2, 'length': 1, 'expression': u'\"class\"', 'name': u'dif_class', 'precision': 1}, {'type': 6, 'length': 21, 'expression': u'\"PCpre_std\"/\"clpre_std\"', 'name': u'cl_ratio', 'precision': 6}]"
                     }, 
                     "active": true, 
                     "consoleName": "qgis:refactorfields", 
@@ -1101,8 +1101,8 @@
                                 "description": "Output_unclassified", 
                                 "pos": {
                                     "values": {
-                                        "y": 1522.8699454525254, 
-                                        "x": 941.0426151263989
+                                        "y": 1521.7414838063025, 
+                                        "x": 949.6312715139165
                                     }, 
                                     "class": "point"
                                 }
@@ -1128,7 +1128,7 @@
                             }, 
                             "class": "processing.modeler.ModelerAlgorithm.ValueFromOutput"
                         }, 
-                        "VALUE": "0.55", 
+                        "VALUE": "5.5", 
                         "FIELD": "cl_ratio"
                     }, 
                     "active": true, 
