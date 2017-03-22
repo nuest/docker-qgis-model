@@ -79,7 +79,7 @@ print "### model.py ### Saving output to files to\n\t" + output_settlements + "\
 
 settlement_threshold = os.getenv('settlement_threshold', 0.3)
 settlement_size = os.getenv('settlement_size', 0)
-change_analysis_threshold = os.getenv('change_analysis_threshold', 0.3)
+change_analysis_threshold = os.getenv('change_analysis_threshold', 0.33)
 print "### model.py ### Input paramters:\n\tsettlement detection sensitivity: " + str(settlement_threshold) + "\n\tminimum settlement size: " + str(settlement_size) + "\n\tchange sensitivity: " + str(change_analysis_threshold) + "\n"
 
 print "### model.py ### Start processing at " + strftime("%Y-%m-%d %H:%M:%S", gmtime()) + " ..."

@@ -10,6 +10,7 @@ MAINTAINER Daniel Nüst <daniel.nuest@uni-muenster.de>
 
 COPY . /workspace
 
+# Default options must be set in model.py, the values are duplicated here to fill the options table in Kitematic 
 LABEL de.ifgi.qgis-model.options '[ \
     { "id": "settlement_threshold", \
       "name": "settlement detection sensitivity", \
