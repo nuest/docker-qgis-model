@@ -23,14 +23,15 @@ xhost -
 - `APACHE-LICENSE-2.0.txt`: full text of code license
 - `cc-by-4.0-legalcode.txt`: full text of text license
 - `create_package.sh`: creation script for this package
-- `example-analysis.log`: output of an example execution
-- `README.md`: this file
-- `software.zip`: source code and installers for all required software in the versions current when conducting the research
-- `qgis-model.zip`: source code and data for the QGIS-based workflow, including Dockerfiles and the actual model (i.e. a clone of [https://github.com/nuest/docker-qgis-model](https://github.com/nuest/docker-qgis-model)
+- `example-analysis.log`: log output of an example execution
+- `example-results.zip`: output files an example execution
+- `instructions-ui.pdf`: step by step instructions for reproducing the QGIS workflow with a user interface
 - `interimage-container.zip`: source code for the InterIMAGE-based workflow (i.e. a clone of [https://github.com/nuest/interimage-container](https://github.com/nuest/interimage-container))
 - `interimage.tar`: Docker image serialization (tarball) of InterIMAGE container
 - `qgis-model_rs-jonjona.tar`: Docker image serialization (tarball) of QGIS container for the Jonjona use case
-- `instructions-ui.pdf`: step by step instructions for reproducing the QGIS workflow with a user interface
+- `qgis-model.zip`: source code and data for the QGIS-based workflow, including Dockerfiles and the actual model (i.e. a clone of [https://github.com/nuest/docker-qgis-model](https://github.com/nuest/docker-qgis-model)
+- `README.md`: this file
+- `software.zip`: source code and installers for all required software in the versions current when conducting the research
 
 ## How to reproduce QGIS analysis from the paper - command line
 

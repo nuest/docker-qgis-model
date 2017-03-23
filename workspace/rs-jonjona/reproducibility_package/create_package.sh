@@ -18,7 +18,7 @@ docker --version
 
 echo "Get code, model and data for QGIS and InterIMAGE as archives"
 git clone https://github.com/nuest/docker-qgis-model.git
-zip -r -q docker-qgis-model.zip docker-qgis-model
+zip -r -q qgis-model.zip docker-qgis-model
 git clone https://github.com/nuest/interimage-container
 zip -r -q interimage-container.zip interimage-container
 rm -rf docker-qgis-model interimage-container
@@ -66,8 +66,14 @@ docker save --output interimage.tar nuest/interimage:1.27
 tar -tvf interimage.tar
 ls -sh interimage.tar
 
-echo "Run analysis in default config and create logfile"
-docker run -it nuest/qgis-model:rs-jonjona > example-analyis.log
+echo "Remove images again and remove potentially existing containers"
+docker rmi --force nuest/qgis-model:rs-jonjona nuest/interimage:1.27
+docker rm rs-jonjona
 
-# Remove images again so they can be imported for testing
-#docker rmi --force nuest/qgis-model:rs-jonjona nuest/interimage:1.27
+echo "Import image from serialization and run example, save the example outputs to archive"
+docker load --input qgis-model_rs-jonjona.tar
+docker run -it --name rs-jonjona -it nuest/qgis-model:rs-jonjona > example-analyis.log
+docker cp rs-jonjona:/results example-results
+tree example-results
+zip -r -q example-results.zip example-results
+rm -r example-results
