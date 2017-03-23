@@ -99,7 +99,21 @@ In the Kitematic UI, execute the steps as described in `instructions-ui.pdf`.
 
 ## How to reproduce InterIMAGE attempts from the paper
 
-...
+The InterIMAGE analysis could not be completed, as no script-based execution is possible. It is possible (on Linux host machines!) to start InterIMAGE within a container, display the user interface, and use the tool as if it is running on the host. This requires to share the X11-server between host and container, which is a potential security risk.
+
+```bash
+# load the image from tarball
+docker load --input interimage.tar
+
+# enable xhost sharing for anyone
+xhost +
+
+# start the container: after this command the InterIMAGE UI is displayed on the host computer and the current directory is accessible under the path /home/data
+docker run -it --rm -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY=unix$DISPLAY -e uid=$(id -u) -e gid=$(id -g) -v $(pwd):/home/data nuest/interimage:1.27 ./interimage
+
+# disable xhost sharing
+xhost -
+```
 
 ## How this package was created
 
