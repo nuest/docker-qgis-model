@@ -1,6 +1,6 @@
 # Docker container for QGIS models
 
-This project contains Docker containers to run [QGIS models](http://docs.qgis.org/2.0/en/docs/user_manual/processing/modeler.html) based on a model file and a minimal Python script from the command line. The Python script contains the actual model call, including all the required input data files (which a generic script cannot guess).
+This project contains Docker containers to run [QGIS models](https://docs.qgis.org/2.14/en/docs/user_manual/processing/modeler.html) based on a model file and a minimal Python script from the command line. The Python script contains the actual model call, including all the required input data files (which a generic script cannot guess).
 
 There are two ways to use the image. First, run it and mount the required workspacea.
 Second, create a new Dockerfile to build an image that embeds the data.
